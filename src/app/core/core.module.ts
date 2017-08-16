@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
+import { CustomMaterialModule } from './custom-material.module';
+
+@NgModule({
+  declarations: [
+    HomeComponent,
+    PageNotFoundComponent
+  ],
+  imports: [
+    CustomMaterialModule
+  ],
+  exports: [
+    CustomMaterialModule
+  ]
+})
+export class CoreModule {
+
+}
