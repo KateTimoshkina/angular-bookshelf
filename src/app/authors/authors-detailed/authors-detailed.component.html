@@ -1,3 +1,7 @@
-<h2>
-  {{ author.firstName }} {{ author.lastName }}
-</h2>
+<h2>{{ author.firstName }} {{ author.lastName }}</h2>
+<div *ngIf="author.books">
+  Books:
+  <br>
+  <app-books-item  *ngFor="let book of author.books"></app-books-item>
+</div>
+

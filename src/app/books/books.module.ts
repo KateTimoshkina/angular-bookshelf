@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BooksListComponent } from './books-list/books-list.component';
-import { BooksItemComponent } from './books-list/books-item/books-item.component';
 import { BooksDetailedComponent } from './books-detailed/books-detailed.component';
 import { BooksComponent } from './books.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -22,12 +22,12 @@ const routes: Routes = [
   declarations: [
     BooksComponent,
     BooksListComponent,
-    BooksItemComponent,
     BooksDetailedComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    SharedModule
   ],
   exports: []
 })
