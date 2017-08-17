@@ -5,9 +5,21 @@ import { AuthorsComponent } from './authors/authors.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 
 export const appRoutes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'book', component: BooksComponent},
-  {path: 'author', component: AuthorsComponent},
-  {path: '**', redirectTo: '/not-found'},
-  {path: 'not-found', component: PageNotFoundComponent}
+  {
+    path: '',
+    pathMatch: 'full',
+    component: HomeComponent
+  },
+  {
+    path: 'author',
+    component: AuthorsComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
+  },
+  {
+    path: 'not-found',
+    component: PageNotFoundComponent
+  }
 ];
