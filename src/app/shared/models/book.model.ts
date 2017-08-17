@@ -1,5 +1,7 @@
 import { Author } from './author.model';
 
+// TODO: make constructor for json parsing
+
 export class Book {
   constructor(
     public _id: string,
