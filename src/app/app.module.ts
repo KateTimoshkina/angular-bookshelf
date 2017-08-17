@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './users/users.component';
-import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
@@ -15,13 +14,12 @@ import { AuthorsModule } from './authors/authors.module';
   declarations: [
     AppComponent,
     UsersComponent,
-    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule,
     RouterModule.forRoot(appRoutes),
+    CoreModule,
     BooksModule,
     AuthorsModule
   ],

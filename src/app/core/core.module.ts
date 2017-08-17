@@ -4,17 +4,22 @@ import { HomeComponent } from './home/home.component';
 import { CustomMaterialModule } from './custom-material.module';
 import { BooksService } from '../books/books.service';
 import { AuthorsService } from '../authors/authors.service';
+import { HeaderComponent } from './header/header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    HeaderComponent
   ],
   imports: [
-    CustomMaterialModule
+    CustomMaterialModule,
+    RouterModule
   ],
   exports: [
-    CustomMaterialModule
+    CustomMaterialModule,
+    HeaderComponent
   ],
   providers: [
     BooksService,
