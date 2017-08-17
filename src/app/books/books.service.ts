@@ -19,11 +19,13 @@ export class BooksService {
   }
 
   updateBook(updatedBook: Book) {
-    const index: number = this.books.indexOf(
-      this.books.find((book: Book) => book.id === updatedBook.id)
-    );
+    const index: number = this.books.indexOf(this.getBook(updatedBook.id));
     this.books[index] = updatedBook;
     this.booksUpdated.next(this.books.slice());
+  }
+
+  getBook(id: string): Book {
+    return this.books.find(book => book.id === id);
   }
 
 }

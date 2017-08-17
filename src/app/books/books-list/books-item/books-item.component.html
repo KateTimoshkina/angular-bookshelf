@@ -1,3 +1,5 @@
 <p>
-  {{ book.title }}
+  <a [routerLink]="['/book', book.id]">
+    {{ book.title }}
+  </a>
 </p>

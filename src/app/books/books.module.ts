@@ -8,13 +8,13 @@ import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
-    path: 'book',
-    redirectTo: 'books'
-  },
-  {
     path: 'books',
     pathMatch: 'full',
     component: BooksListComponent
+  },
+  {
+    path: 'book/:bookId',
+    component: BooksDetailedComponent
   }
 ];
 
