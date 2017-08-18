@@ -1,6 +1,6 @@
 import { Bookshelf } from './bookshelf.model';
 
-export class User {
+export class Reader {
   constructor(
     public _id: string,
     public _fullName: string,
