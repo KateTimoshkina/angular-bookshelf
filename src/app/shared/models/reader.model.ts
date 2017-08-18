@@ -5,11 +5,9 @@ export class Reader {
     public _id: string,
     public _fullName: string,
     public _login: string,
-    public _email: string,
-    public _password: string,
-    public _group: number,
+    public _imageUrl: string,
     public _registrationDate: Date,
-    public _bookshelfs: Bookshelf[]
+    public _bookshelves: Bookshelf[]
   ) {}
 
   public get id(): string {
@@ -36,28 +34,12 @@ export class Reader {
     this._login = value;
   }
 
-  public get email(): string {
-    return this._email;
+  public get imageUrl(): string {
+    return this._imageUrl;
   }
 
-  public set email(value: string) {
-    this._email = value;
-  }
-
-  public get password(): string {
-    return this._password;
-  }
-
-  public set password(value: string) {
-    this._password = value;
-  }
-
-  public get group(): number {
-    return this._group;
-  }
-
-  public set group(value: number) {
-    this._group = value;
+  public set imageUrl(value: string) {
+    this._imageUrl = value;
   }
 
   public get registrationDate(): Date {
@@ -68,11 +50,11 @@ export class Reader {
     this._registrationDate = value;
   }
 
-  public get bookshelfs(): Bookshelf[] {
-    return this._bookshelfs;
+  public get bookshelves(): Bookshelf[] {
+    return this._bookshelves;
   }
 
-  public set bookshelfs(value: Bookshelf[]) {
-    this._bookshelfs = value;
+  public set bookshelves(value: Bookshelf[]) {
+    this._bookshelves = value;
   }
 }
