@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { AuthorsItemComponent } from './components/authors-item/authors-item.component';
 import { BooksItemComponent } from './components/books-item/books-item.component';
 import { RouterModule } from '@angular/router';
+import { BookshelvesModule } from './widgets/bookshelves/bookshelves.module';
 
 @NgModule({
   imports: [
-    RouterModule
+    RouterModule,
+    BookshelvesModule
   ],
   declarations: [
     AuthorsItemComponent,
@@ -13,7 +15,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     AuthorsItemComponent,
-    BooksItemComponent
+    BooksItemComponent,
+    BookshelvesModule
   ]
 })
 export class SharedModule {
