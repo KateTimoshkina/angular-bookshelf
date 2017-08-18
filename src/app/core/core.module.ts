@@ -6,6 +6,8 @@ import { BooksService } from '../books/books.service';
 import { AuthorsService } from '../authors/authors.service';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { AuthGuard } from '../auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     BooksService,
-    AuthorsService
+    AuthorsService,
+    AuthService,
+    AuthGuard
   ]
 })
 export class CoreModule {
