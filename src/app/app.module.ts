@@ -3,17 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UsersComponent } from './users/users.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { CoreModule } from './core/core.module';
 import { BooksModule } from './books/books.module';
 import { AuthorsModule } from './authors/authors.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +20,8 @@ import { AuthorsModule } from './authors/authors.module';
     RouterModule.forRoot(appRoutes),
     CoreModule,
     BooksModule,
-    AuthorsModule
+    AuthorsModule,
+    UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
