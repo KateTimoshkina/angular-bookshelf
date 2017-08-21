@@ -21,7 +21,6 @@ export class SignInComponent implements OnInit {
     const email = form.value['email'];
     const password = form.value['password'];
     this.authService.singIn(email, password);
-    this.router.navigate(['/']);
   }
 
 }
