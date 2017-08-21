@@ -3,7 +3,12 @@
   <a routerLink="/books" routerLinkActive="mat-button-toggle-checked" md-button>Books</a>
   <a routerLink="/authors" routerLinkActive="mat-button-toggle-checked" md-button>Authors</a>
   <span style="flex: 1 1 auto;"></span>
-  <a routerLink="/sign-in"
+  <a *ngIf="!authService.isAuthenticated()"
+     routerLink="/sign-in"
      class="mat-button-toggle-checked"
      md-button>Sign In</a>
+  <a *ngIf="authService.isAuthenticated()"
+     (click)="onLogOut()"
+     class="mat-button-toggle-checked"
+     md-button>Log out</a>
 </md-toolbar>

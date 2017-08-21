@@ -7,6 +7,7 @@ import { AuthorsService } from '../authors/authors.service';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AuthModule } from '../auth/auth.module';
     HeaderComponent
   ],
   imports: [
+    CommonModule,
     CustomMaterialModule,
     RouterModule,
     AuthModule
