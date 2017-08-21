@@ -1,14 +1,25 @@
 import { Bookshelf } from './bookshelf.model';
 
 export class Reader {
-  constructor(
-    public _id: string,
-    public _fullName: string,
-    public _login: string,
-    public _imageUrl: string,
-    public _registrationDate: Date,
-    public _bookshelves: Bookshelf[]
-  ) {}
+  private _id: string;
+  private _fullName: string;
+  private _login: string;
+  private _imageUrl: string;
+  private _bookshelves: Bookshelf[];
+
+  constructor(input: any) {
+
+    if (!input) {
+      return;
+    }
+
+    this.id = input['id'];
+    this.fullName = input['fullName'] || null;
+    this.login = input['login'] || null;
+    this.imageUrl = input['imageUrl'] || null;
+    this.bookshelves = input['bookshelves'] || null;
+
+  }
 
   public get id(): string {
     return this._id;
@@ -40,14 +51,6 @@ export class Reader {
 
   public set imageUrl(value: string) {
     this._imageUrl = value;
-  }
-
-  public get registrationDate(): Date {
-    return this._registrationDate;
-  }
-
-  public set registrationDate(value: Date) {
-    this._registrationDate = value;
   }
 
   public get bookshelves(): Bookshelf[] {
