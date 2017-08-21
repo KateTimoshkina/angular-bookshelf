@@ -1,1 +1,25 @@
-<h3>Sign in</h3>
+<md-card style="width: 300px; max-width: 100%; margin: 30px auto 0; display: block">
+  <md-card-header>
+    <md-card-title><h3>Sign in</h3></md-card-title>
+  </md-card-header>
+  <md-card-content>
+    <form #signInForm="ngForm">
+      <md-input-container style="display: block">
+        <input mdInput
+               ngModel
+               name="email"
+               placeholder="email">
+      </md-input-container>
+      <md-input-container style="display: block">
+        <input mdInput
+               ngModel
+               name="password"
+               placeholder="password"
+               type="password">
+      </md-input-container>
+    </form>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="onSignIn(signInForm)">{{ "Sign in" | uppercase }}</button>
+  </md-card-actions>
+</md-card>
