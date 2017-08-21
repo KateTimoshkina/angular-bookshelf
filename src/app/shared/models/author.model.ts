@@ -1,14 +1,21 @@
 import { Book } from './book.model';
 
 export class Author {
-  constructor(
-    public _id: string,
-    public _firstName: string,
-    public _lastName: string,
-    public _yearOfBirth: number,
-    public _bio: string,
-    public _books: Book[]
-  ) {}
+  public _id: string;
+  public _firstName: string;
+  public _lastName: string;
+  public _yearOfBirth: number;
+  public _bio: string;
+  public _books: Book[];
+
+  constructor(input) {
+    this.id = input['id'];
+    this.firstName = input['firstName'] || null;
+    this.lastName = input['lastName'] || null;
+    this.yearOfBirth = input['yearOfBirth'] || null;
+    this.bio = input['bio'] || null;
+    this.books = input['books'] || null;
+  }
 
   public get id(): string {
     return this._id;
@@ -55,6 +62,11 @@ export class Author {
   }
 
   public set books(value: Book[]) {
-    this._books = value;
+    this._books = [];
+    if (value) {
+      for (const item in value) {
+        this._books.push(item ? new Book(item) : null);
+      }
+    }
   }
 }

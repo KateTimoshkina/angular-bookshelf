@@ -58,6 +58,11 @@ export class Reader {
   }
 
   public set bookshelves(value: Bookshelf[]) {
-    this._bookshelves = value;
+    this._bookshelves = [];
+    if (value) {
+      for (const item of value) {
+        this._bookshelves.push(item ? new Bookshelf(item) : null);
+      }
+    }
   }
 }

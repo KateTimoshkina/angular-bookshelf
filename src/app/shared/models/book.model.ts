@@ -1,15 +1,24 @@
 import { Author } from './author.model';
 
-// TODO: make constructor for json parsing
-
 export class Book {
-  constructor(
-    public _id: string,
-    public _title: string,
-    public _authors: Author[],
-    public _publishingYear: number,
-    public _series: string
-  ) {}
+  private _id: string;
+  private _title: string;
+  private _authors: Author[];
+  private _publishingYear: number;
+  private _series: string;
+
+  constructor(input) {
+    if (!input) {
+      return;
+    }
+
+    this.id = input['id'];
+    this.title = input['title'] || null;
+    this.authors = input['authors'] || null;
+    this.publishingYear = input['publishingYear'] || null;
+    this.series = input['series'] || null;
+
+  }
 
   public get id(): string {
     return this._id;
@@ -32,7 +41,12 @@ export class Book {
   }
 
   public set authors(value: Author[]) {
-    this._authors = value;
+    this._authors = [];
+    if (value) {
+      for (const item in value) {
+        this._authors.push(item ? new Author(item) : null);
+      }
+    }
   }
 
   public get publishingYear(): number {
