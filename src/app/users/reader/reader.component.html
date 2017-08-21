@@ -1,4 +1,15 @@
-<p>
-  Reader's profile
-</p>
-<app-bookshelves [bookshelves]="[]"></app-bookshelves>
+<div style="clear: both;" *ngIf="reader">
+  <div style="width: 50%; float: left;">
+    <md-card>
+      <img md-card-image src="{{ reader.imageUrl }}">
+      <md-card-content>
+        <p *ngIf="!!reader.fullName">{{ reader.fullName }}</p>
+        <p *ngIf="!!reader.login">{{ reader.login }}</p>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div style="width: 50%; float: left;">
+    <app-bookshelves [bookshelves]="reader.bookshelves"></app-bookshelves>
+  </div>
+</div>
+<div style="clear: both"></div>
