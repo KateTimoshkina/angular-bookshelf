@@ -1,8 +1,8 @@
 import * as firebase from 'firebase';
 
 export class AuthService {
+  user: firebase.User;
   token: string;
-  uid: string;
 
   constructor() { }
 
@@ -14,8 +14,8 @@ export class AuthService {
             .then(
               (token: string) => this.token = token
             );
-          this.uid = user.uid;
-          console.log(this.uid);
+          this.user = user;
+          console.log(this.user);
         }
       )
       .catch(
@@ -36,7 +36,7 @@ export class AuthService {
   logout(): void {
     firebase.auth().signOut();
     this.token = null;
-    this.uid = null;
+    this.user = null;
   }
 
   getToken(): string {
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   getUid(): string {
-    return this.uid;
+    return this.user.uid;
   }
 
   isAuthenticated(): boolean {

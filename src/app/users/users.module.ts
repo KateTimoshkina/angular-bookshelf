@@ -1,20 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReaderComponent } from './reader/reader.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { ROUTES as userRoutes } from './users.routes';
 
-const ROUTES: Routes = [
-  {
-    path: 'profile',
-    component: ReaderComponent
-  }
-];
+
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(ROUTES),
+    RouterModule.forChild(userRoutes),
     SharedModule
   ],
   declarations: [
