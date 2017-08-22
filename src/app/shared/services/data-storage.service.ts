@@ -7,6 +7,7 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Author } from '../models/author.model';
 import { Book } from '../models/book.model';
+import { Bookshelf } from '../models/bookshelf.model';
 
 @Injectable()
 export class DataStorageService {
@@ -51,6 +52,18 @@ export class DataStorageService {
   storeBooks(): Observable<Response> {
     const token = this.authService.getToken();
     return this.apiService.put('books', this.booksService.getBooks(), token);
+  }
+
+  loadUserBookshelves(userId: string) {
+    // TODO: check if user has 'reader' role
+    const token = this.authService.getToken();
+    return this.apiService.get('bookshelves', token)
+      .subscribe(
+        (response: Response) => {
+          const rawBookshelves = response.json();
+          console.log(rawBookshelves);
+        }
+      );
   }
 
 }

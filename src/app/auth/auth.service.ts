@@ -50,8 +50,8 @@ export class AuthService {
     return this.token;
   }
 
-  getUid(): string {
-    return this.user.uid;
+  getUser(): firebase.User {
+    return this.user;
   }
 
   isAuthenticated(): boolean {

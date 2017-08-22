@@ -13,8 +13,16 @@ export class ReaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    // build reader from  firebase.user
-    // get user's bookshelves from firebase using user's uid
+    const authUser = this.authService.getUser();
+    const rawReader = {
+      id: authUser.uid,
+      fullName: authUser.displayName,
+      login: authUser.email,
+      imageUrl: authUser.photoURL,
+      bookshelves: []
+    };
+    this.reader = new Reader(rawReader);
+    console.log(this.reader.id);
   }
 
 }
