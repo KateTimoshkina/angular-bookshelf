@@ -34,4 +34,24 @@ export class DataStorageService {
       );
   }
 
+  loadBooks(): void {
+    const token = this.authService.getToken();
+    this.apiService.get('books', token)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
+        },
+        (error) => console.log(error)
+      );
+  }
+
+  storeBooks(): void {
+    const token = this.authService.getToken();
+    this.apiService.put('books', this.booksService.getBooks(), token)
+      .subscribe(
+        () => console.log('got books from server'),
+        () => console.log('error occurred')
+      );
+  }
+
 }

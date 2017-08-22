@@ -3,11 +3,12 @@ import { Subject } from 'rxjs/Subject';
 
 export class BooksService {
   booksUpdated = new Subject<Book[]>();
-  books: Book[] = [
-    new Book('gdfgdfsdgd', 'Book title', [], 1967, 'books'),
-    new Book('dsdilkl;l;', 'Cras egestas semper orci', [], 2015, null),
-    new Book('fsfsfdsfsd;', 'Vestibulum velit ante, porttitor sed leo ut', [], 1972, null)
-  ];
+  books: Book[];
+
+  setBooks(books: Book[]): void {
+    this.books = books;
+    this.booksUpdated.next(this.getBooks());
+  }
 
   getBooks(): Book[] {
     return this.books.slice();
