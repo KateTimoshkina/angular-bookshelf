@@ -13,7 +13,7 @@ export class DataStorageService {
               private booksService: BooksService,
               private authorsService: AuthorsService) { }
 
-  loadAuthors() {
+  loadAuthors(): void {
     const token = this.authService.getToken();
     this.apiService.get('authors', token)
       .subscribe(
@@ -25,7 +25,7 @@ export class DataStorageService {
       );
   }
 
-  storeAuthors() {
+  storeAuthors(): void {
     const token = this.authService.getToken();
     this.apiService.put('authors', this.authorsService.getAuthors(), token)
       .subscribe(
