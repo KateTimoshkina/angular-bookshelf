@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { BooksModule } from './books/books.module';
 import { AuthorsModule } from './authors/authors.module';
 import { UsersModule } from './users/users.module';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     CoreModule,
+    HttpModule,
     BooksModule,
     AuthorsModule,
     UsersModule
