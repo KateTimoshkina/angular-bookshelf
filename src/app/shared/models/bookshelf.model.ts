@@ -1,5 +1,34 @@
 import { Book } from './book.model';
 
+class BookWithStatus {
+  public _book: Book;
+  public _status: string;
+
+  constructor(input) {
+    if (!input) {
+      return;
+    }
+    this.book = input['book'];
+    this.status = input['status'];
+  }
+
+  public get book(): Book {
+    return this._book;
+  }
+
+  public set book(value: Book) {
+    this._book = new Book(value);
+  }
+
+  public get status(): string {
+    return this._status;
+  }
+
+  public set status(value: string) {
+    this._status = value;
+  }
+}
+
 export class Bookshelf {
   private _id: string;
   private _title: string;
@@ -40,11 +69,7 @@ export class Bookshelf {
     if (value) {
       for (const item in value) {
         if (item) {
-          // TODO: fix
-          this._books.push({
-            book: new Book(item.book),
-            status: item.status
-          });
+          this._books.push(item ? new BookWithStatus(item) : null);
         }
       }
     }
