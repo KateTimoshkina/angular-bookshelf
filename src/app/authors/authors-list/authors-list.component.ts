@@ -15,7 +15,7 @@ export class AuthorsListComponent implements OnInit, OnDestroy {
   constructor(private authorsService: AuthorsService) { }
 
   ngOnInit() {
-    this.authors = this.authorsService.getAuthors();
+    this.authors = [];
     this.authorsSubscription = this.authorsService.authorsChanged.subscribe(
       (authors: Author[]) => this.authors = authors
     );

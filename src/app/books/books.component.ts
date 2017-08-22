@@ -8,10 +8,8 @@ import { DataStorageService } from '../shared/services/data-storage.service';
 })
 export class BooksComponent implements OnInit {
 
-  constructor(private dsService: DataStorageService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.dsService.loadBooks();
-  }
+  ngOnInit() { }
 
 }

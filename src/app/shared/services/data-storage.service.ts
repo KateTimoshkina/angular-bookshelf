@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { BooksService } from '../../books/books.service';
 import { AuthorsService } from '../../authors/authors.service';
 import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DataStorageService {
@@ -24,13 +25,9 @@ export class DataStorageService {
       );
   }
 
-  storeAuthors(): void {
+  storeAuthors(): Observable<Response> {
     const token = this.authService.getToken();
-    this.apiService.put('authors', this.authorsService.getAuthors(), token)
-      .subscribe(
-        () => console.log('got authors from server'),
-        () => console.log('error occurred')
-      );
+    return this.apiService.put('authors', this.authorsService.getAuthors(), token);
   }
 
   loadBooks(): void {
@@ -43,13 +40,9 @@ export class DataStorageService {
       );
   }
 
-  storeBooks(): void {
+  storeBooks(): Observable<Response> {
     const token = this.authService.getToken();
-    this.apiService.put('books', this.booksService.getBooks(), token)
-      .subscribe(
-        () => console.log('got books from server'),
-        () => console.log('error occurred')
-      );
+    return this.apiService.put('books', this.booksService.getBooks(), token);
   }
 
 }

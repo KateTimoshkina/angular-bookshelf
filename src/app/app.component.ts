@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
+import { DataStorageService } from './shared/services/data-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,8 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  constructor(private dsService: DataStorageService) {}
 
   ngOnInit() {
     // Initialize Firebase
@@ -19,5 +22,8 @@ export class AppComponent implements OnInit {
       messagingSenderId: "192819524683"
     };
     firebase.initializeApp(config);
+
+    this.dsService.loadBooks();
+    this.dsService.loadAuthors();
   }
 }

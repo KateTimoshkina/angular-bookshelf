@@ -8,10 +8,9 @@ import { DataStorageService } from '../shared/services/data-storage.service';
 })
 export class AuthorsComponent implements OnInit {
 
-  constructor(private dsService: DataStorageService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.dsService.loadAuthors();
   }
 
 }
