@@ -5,6 +5,8 @@ import { BooksService } from '../../books/books.service';
 import { AuthorsService } from '../../authors/authors.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { Author } from '../models/author.model';
+import { Book } from '../models/book.model';
 
 @Injectable()
 export class DataStorageService {
@@ -19,7 +21,10 @@ export class DataStorageService {
       .subscribe(
         (response: Response) => {
           // this.authorsService.setAuthors();
-          console.log(response);
+          const rawAuthors: Array<any> = response.json();
+          this.authorsService.setAuthors(
+            rawAuthors.map((item: any) => new Author(item))
+          );
         },
         (error) => console.log(error)
       );
@@ -34,7 +39,10 @@ export class DataStorageService {
     this.apiService.get('books')
       .subscribe(
         (response: Response) => {
-          console.log(response);
+          const rawBooks: Array<any> = response.json();
+          this.booksService.setBooks(
+            rawBooks.map((item: any) => new Book(item))
+          );
         },
         (error) => console.log(error)
       );

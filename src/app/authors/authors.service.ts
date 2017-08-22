@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class AuthorsService {
   authorsChanged = new Subject<Author[]>();
-  authors: Author[];
+  authors: Author[] = [];
 
   setAuthors(authors: Author[]): void {
     this.authors = authors;

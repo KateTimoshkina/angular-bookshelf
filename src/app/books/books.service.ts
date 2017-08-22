@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class BooksService {
   booksUpdated = new Subject<Book[]>();
-  books: Book[];
+  books: Book[] = [];
 
   setBooks(books: Book[]): void {
     this.books = books;
