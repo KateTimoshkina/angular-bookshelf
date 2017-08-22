@@ -8,6 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '../auth/auth.module';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../shared/services/api.service';
+import { DataStorageService } from '../shared/services/data-storage.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { CommonModule } from '@angular/common';
     AuthModule
   ],
   providers: [
+    ApiService,
+    DataStorageService,
     BooksService,
     AuthorsService
   ]
