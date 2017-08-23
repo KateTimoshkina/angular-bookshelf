@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Bookshelf } from '../../../models/bookshelf.model';
 
 @Component({
@@ -7,7 +7,7 @@ import { Bookshelf } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-detailed.component.css']
 })
 export class BookshelvesDetailedComponent implements OnInit {
-  bookshelf: Bookshelf;
+  @Input() bookshelf: Bookshelf;
 
   constructor() { }
 

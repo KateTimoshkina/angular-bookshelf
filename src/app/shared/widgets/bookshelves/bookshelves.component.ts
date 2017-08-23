@@ -8,13 +8,23 @@ import { Bookshelf } from '../../models/bookshelf.model';
 })
 export class BookshelvesComponent implements OnInit {
   @Input() bookshelves: Bookshelf[];
+  selectedBookshelf: Bookshelf;
   isDetailed = false;
   isEditable = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.selectedBookshelf = null;
+  }
 
+  onItemSelected(bookshelf: Bookshelf) {
+    if (this.selectedBookshelf === bookshelf) {
+      this.isDetailed = !this.isDetailed;
+    } else {
+      this.selectedBookshelf = bookshelf;
+      this.isDetailed = true;
+    }
   }
 
 }

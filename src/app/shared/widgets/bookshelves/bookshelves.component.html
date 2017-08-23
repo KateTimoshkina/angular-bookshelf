@@ -1,5 +1,8 @@
 <p>User bookshelves</p>
 <app-bookshelves-item *ngFor="let bookshelf of bookshelves"
-                      [bookshelf]="bookshelf"></app-bookshelves-item>
-<app-bookshelves-detailed *ngIf="isDetailed"></app-bookshelves-detailed>
-<app-bookshelves-edit *ngIf="isEditable"></app-bookshelves-edit>
+                      [bookshelf]="bookshelf"
+                      (click)="onItemSelected(bookshelf)"></app-bookshelves-item>
+<app-bookshelves-detailed *ngIf="isDetailed"
+                          [bookshelf]="selectedBookshelf"></app-bookshelves-detailed>
+<app-bookshelves-edit *ngIf="isEditable"
+                      [bookshelf]="selectedBookshelf"></app-bookshelves-edit>

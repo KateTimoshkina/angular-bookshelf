@@ -1,3 +1,8 @@
 <p>
-  bookshelves-detailed works!
+  {{ bookshelf.title }}
 </p>
+<md-list *ngIf="bookshelf.books">
+  <md-list-item *ngFor="let book of bookshelf.books">
+    {{ book.book.title }} - {{book.status}}
+  </md-list-item>
+</md-list>

@@ -1,8 +1,8 @@
 import { Book } from './book.model';
 
 class BookWithStatus {
-  public _book: Book;
-  public _status: string;
+  private _book: Book;
+  private _status: string;
 
   constructor(input) {
     if (!input) {
@@ -32,7 +32,7 @@ class BookWithStatus {
 export class Bookshelf {
   private _id: string;
   private _title: string;
-  private _books: {book: Book, status: string}[];
+  private _books: BookWithStatus[];
 
   constructor(input) {
     if (!input) {
@@ -60,17 +60,15 @@ export class Bookshelf {
     this._title = value;
   }
 
-  public get books(): { book: Book, status: string }[] {
+  public get books(): BookWithStatus[] {
     return this._books;
   }
 
-  public set books(value: { book: Book, status: string }[]) {
+  public set books(value: BookWithStatus[]) {
     this._books = [];
     if (value) {
-      for (const item in value) {
-        if (item) {
-          this._books.push(item ? new BookWithStatus(item) : null);
-        }
+      for (const item of value) {
+        this._books.push(item ? new BookWithStatus(item) : null);
       }
     }
   }
