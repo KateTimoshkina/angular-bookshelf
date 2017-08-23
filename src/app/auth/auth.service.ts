@@ -58,6 +58,10 @@ export class AuthService {
     return this.user;
   }
 
+  setUser(user: firebase.User): void {
+    this.user = user;
+  }
+
   isAuthenticated(): boolean {
     return !!this.token;
   }
@@ -67,8 +71,9 @@ export class AuthService {
       item => item.startsWith('firebase:authUser')
     );
     if (localStorageKey) {
-      const firebaseUser = JSON.parse(window.localStorage.getItem(localStorageKey));
-      this.setToken(firebaseUser['stsTokenManager']['accessToken']);
+      const user: firebase.User = JSON.parse(window.localStorage.getItem(localStorageKey));
+      this.setUser(user);
+      this.setToken(user['stsTokenManager']['accessToken']);
     }
   }
 

@@ -7,8 +7,12 @@
      routerLink="/sign-in"
      class="mat-button-toggle-checked"
      md-button>Sign In</a>
-  <a *ngIf="authService.isAuthenticated()"
-     (click)="onLogOut()"
-     class="mat-button-toggle-checked"
-     md-button>Log out</a>
+  <div *ngIf="authService.isAuthenticated()">
+    <a routerLink="/profile"
+       md-button>profile</a>
+    <a
+      (click)="onLogOut()"
+      class="mat-button-toggle-checked"
+      md-button>Log out</a>
+  </div>
 </md-toolbar>
