@@ -50,12 +50,26 @@ export class AuthService {
     return this.token;
   }
 
+  setToken(token: string): void {
+    this.token = token;
+  }
+
   getUser(): firebase.User {
     return this.user;
   }
 
   isAuthenticated(): boolean {
     return !!this.token;
+  }
+
+  checkTokenInLocalStorage() {
+    const localStorageKey = Object.keys(window.localStorage).find(
+      item => item.startsWith('firebase:authUser')
+    );
+    if (localStorageKey) {
+      const firebaseUser = JSON.parse(window.localStorage.getItem(localStorageKey));
+      this.setToken(firebaseUser['stsTokenManager']['accessToken']);
+    }
   }
 
 }
