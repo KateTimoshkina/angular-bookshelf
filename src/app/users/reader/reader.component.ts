@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Reader } from '../../shared/models/reader.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
-import { Bookshelf } from '../../shared/models/bookshelf.model';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-reader',
@@ -32,10 +30,9 @@ export class ReaderComponent implements OnInit {
         (response) => {
           rawReader.bookshelves = response.json();
           this.reader = new Reader(rawReader);
-          console.log(this.reader);
         },
         (error) => {
-          console.log(error);
+          console.error(error);
         }
       );
   }
