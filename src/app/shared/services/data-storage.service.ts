@@ -54,16 +54,11 @@ export class DataStorageService {
     return this.apiService.put('books', this.booksService.getBooks(), token);
   }
 
-  loadUserBookshelves(userId: string) {
+  loadUserBookshelves(userId: string): Observable<Response> {
     // TODO: check if user has 'reader' role
-    const token = this.authService.getToken();
-    return this.apiService.get('bookshelves', token)
-      .subscribe(
-        (response: Response) => {
-          const rawBookshelves = response.json();
-          console.log(rawBookshelves);
-        }
-      );
+    const token = this.authService.token;
+    const endPoint = 'bookshelves' + '/' + userId;
+    return this.apiService.get(endPoint, token);
   }
 
 }
