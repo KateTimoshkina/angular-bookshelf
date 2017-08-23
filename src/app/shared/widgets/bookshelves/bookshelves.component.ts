@@ -27,4 +27,8 @@ export class BookshelvesComponent implements OnInit {
     }
   }
 
+  onAddItem() {
+
+  }
+
 }

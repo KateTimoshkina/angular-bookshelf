@@ -1,4 +1,5 @@
 <p>User bookshelves</p>
+<a md-button (click)="onAddItem()">Add new</a>
 <app-bookshelves-item *ngFor="let bookshelf of bookshelves"
                       [bookshelf]="bookshelf"
                       (click)="onItemSelected(bookshelf)"></app-bookshelves-item>
