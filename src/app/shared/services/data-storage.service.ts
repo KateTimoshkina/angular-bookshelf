@@ -61,4 +61,18 @@ export class DataStorageService {
     return this.apiService.get(endPoint, token);
   }
 
+  public generateUid(repeatNumber: number): string {
+    let result = '';
+    for (let i = 0; i < repeatNumber; i++) {
+      result += this.gereratePartial();
+    }
+    return result;
+  }
+
+  private gereratePartial(): string {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(36)
+      .substring(1);
+  }
+
 }
