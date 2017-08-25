@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ROUTES as userRoutes } from './users.routes';
 import { CustomMaterialModule } from '../core/custom-material.module';
+import { PublisherComponent } from './publisher/publisher.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CustomMaterialModule } from '../core/custom-material.module';
     CustomMaterialModule
   ],
   declarations: [
-    ReaderComponent
+    ReaderComponent,
+    PublisherComponent
   ]
 })
 export class UsersModule { }
