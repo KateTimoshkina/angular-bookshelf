@@ -5,6 +5,8 @@
                       (click)="onItemSelected(bookshelf)"></app-bookshelves-item>
 <hr style="margin: 30px 0">
 <app-bookshelves-detailed *ngIf="isDetailed"
-                          [bookshelf]="selectedBookshelf"></app-bookshelves-detailed>
+                          [bookshelf]="selectedBookshelf"
+                          (editItem)="onEditItem($event)"></app-bookshelves-detailed>
 <app-bookshelves-edit *ngIf="isEditable"
-                      [bookshelf]="selectedBookshelf"></app-bookshelves-edit>
+                      [bookshelf]="selectedBookshelf"
+                      (saveItem)="onSaveItem()"></app-bookshelves-edit>

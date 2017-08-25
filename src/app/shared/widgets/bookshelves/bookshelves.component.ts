@@ -31,4 +31,15 @@ export class BookshelvesComponent implements OnInit {
 
   }
 
+  onEditItem(bookshelf: Bookshelf) {
+    this.isDetailed = false;
+    this.isEditable = true;
+    this.selectedBookshelf = bookshelf;
+  }
+
+  onSaveItem() {
+    this.isDetailed = true;
+    this.isEditable = false;
+  }
+
 }

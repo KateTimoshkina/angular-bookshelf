@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Bookshelf } from '../../../models/bookshelf.model';
 
 @Component({
@@ -7,11 +7,16 @@ import { Bookshelf } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-detailed.component.css']
 })
 export class BookshelvesDetailedComponent implements OnInit {
+  @Output() editItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onEdit() {
+    this.editItem.emit(this.bookshelf);
   }
 
 }
