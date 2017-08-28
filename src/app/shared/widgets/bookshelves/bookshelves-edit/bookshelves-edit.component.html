@@ -3,8 +3,12 @@
   <input type="text" mdInput placeholder="Title" [(ngModel)]="title">
 </md-input-container>
 <br>
-<button md-button (click)="onSaveItem()">Save changes</button>
+<button md-button (click)="onCancelChanges()" class="mat-warn">Cancel</button>
+<button md-button (click)="onSaveItem()">
+  <md-icon>done</md-icon>
+  Save changes
+</button>
 <button md-button (click)="onDeleteItem()"  color="primary">
-  <md-icon class="example-icon">delete</md-icon>
+  <md-icon>delete</md-icon>
   Delete bookshelf
 </button>

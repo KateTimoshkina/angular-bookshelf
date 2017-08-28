@@ -24,6 +24,10 @@ export class BookshelvesEditComponent implements OnInit {
     this.saveItem.emit();
   }
 
+  onCancelChanges() {
+    this.saveItem.emit();
+  }
+
   onDeleteItem() {
     this.deleteItem.emit(this.bookshelf);
   }
