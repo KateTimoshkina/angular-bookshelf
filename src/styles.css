@@ -1,8 +1,1 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
-.mat-button{
-  border: 1px solid gray;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
