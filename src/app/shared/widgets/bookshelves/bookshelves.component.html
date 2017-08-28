@@ -9,4 +9,5 @@
                           (editItem)="onEditItem($event)"></app-bookshelves-detailed>
 <app-bookshelves-edit *ngIf="isEditable"
                       [bookshelf]="selectedBookshelf"
-                      (saveItem)="onSaveItem()"></app-bookshelves-edit>
+                      (saveItem)="onSaveItem()"
+                      (deleteItem)="onDeleteItem($event)"></app-bookshelves-edit>

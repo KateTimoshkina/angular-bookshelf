@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Reader } from '../../shared/models/reader.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
+import { Bookshelf } from '../../shared/models/bookshelf.model';
 
 @Component({
   selector: 'app-reader',
@@ -35,6 +36,11 @@ export class ReaderComponent implements OnInit {
           console.error(error);
         }
       );
+  }
+
+  deleteUserBookshelf(bookshelf: Bookshelf): void {
+    const index = this.reader.bookshelves.indexOf(bookshelf);
+    this.reader.bookshelves.splice(index, 1);
   }
 
 }

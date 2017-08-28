@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Bookshelf } from '../../models/bookshelf.model';
 
 @Component({
@@ -7,6 +7,7 @@ import { Bookshelf } from '../../models/bookshelf.model';
   styleUrls: ['./bookshelves.component.css']
 })
 export class BookshelvesComponent implements OnInit {
+  @Output() deleteBookshelf = new EventEmitter<Bookshelf>();
   @Input() bookshelves: Bookshelf[];
   selectedBookshelf: Bookshelf;
   isDetailed = false;
@@ -39,6 +40,12 @@ export class BookshelvesComponent implements OnInit {
 
   onSaveItem() {
     this.isDetailed = true;
+    this.isEditable = false;
+  }
+
+  onDeleteItem(bookshelf: Bookshelf) {
+    // TODO: add confirmation
+    this.deleteBookshelf.emit(bookshelf);
     this.isEditable = false;
   }
 

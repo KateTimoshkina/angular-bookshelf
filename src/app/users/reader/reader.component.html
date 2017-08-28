@@ -9,7 +9,8 @@
     </md-card>
   </div>
   <div style="width: 50%; float: left;">
-    <app-bookshelves [bookshelves]="reader.bookshelves"></app-bookshelves>
+    <app-bookshelves [bookshelves]="reader.bookshelves"
+                     (deleteBookshelf)="deleteUserBookshelf($event)"></app-bookshelves>
   </div>
 </div>
 <div style="clear: both"></div>

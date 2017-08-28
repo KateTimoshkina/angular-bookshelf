@@ -7,6 +7,7 @@ import { Bookshelf } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-edit.component.css']
 })
 export class BookshelvesEditComponent implements OnInit {
+  @Output() deleteItem = new EventEmitter<Bookshelf>();
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
   title: string;
@@ -21,6 +22,10 @@ export class BookshelvesEditComponent implements OnInit {
     // TODO: add empty field validation
     this.bookshelf.title = this.title;
     this.saveItem.emit();
+  }
+
+  onDeleteItem() {
+    this.deleteItem.emit(this.bookshelf);
   }
 
 }
