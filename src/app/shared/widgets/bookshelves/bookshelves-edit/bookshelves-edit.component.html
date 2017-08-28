@@ -1,3 +1,6 @@
 <h3>Edit your bookshelf</h3>
-<p>Title: {{ bookshelf.title }}</p>
+<md-input-container>
+  <input type="text" mdInput placeholder="Title" [(ngModel)]="title">
+</md-input-container>
+<br>
 <button md-button (click)="onSaveItem()">Save changes</button>

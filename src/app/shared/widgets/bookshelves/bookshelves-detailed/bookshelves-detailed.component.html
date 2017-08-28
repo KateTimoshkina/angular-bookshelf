@@ -1,9 +1,8 @@
 <md-card>
   <md-card-header>
-    <button md-button (click)="onEdit()">Edit</button>
     <h3>
-    {{ bookshelf.title }}
-  </h3>
+      {{ bookshelf.title }}
+    </h3>
   </md-card-header>
   <md-card-content>
     <md-list *ngIf="bookshelf.books">
@@ -12,4 +11,7 @@
       </md-list-item>
     </md-list>
   </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="onEdit()">Edit</button>
+  </md-card-actions>
 </md-card>

@@ -9,14 +9,17 @@ import { Bookshelf } from '../../../models/bookshelf.model';
 export class BookshelvesEditComponent implements OnInit {
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
+  title: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.title = this.bookshelf.title;
   }
 
   onSaveItem() {
-    this.bookshelf.title += '1';
+    // TODO: add empty field validation
+    this.bookshelf.title = this.title;
     this.saveItem.emit();
   }
 

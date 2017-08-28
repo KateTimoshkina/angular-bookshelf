@@ -5,10 +5,12 @@ import { BookshelvesEditComponent } from './bookshelves-edit/bookshelves-edit.co
 import { BookshelvesComponent } from './bookshelves.component';
 import { CommonModule } from '@angular/common';
 import { CustomMaterialModule } from '../../../core/custom-material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     CustomMaterialModule
   ],
   declarations: [
