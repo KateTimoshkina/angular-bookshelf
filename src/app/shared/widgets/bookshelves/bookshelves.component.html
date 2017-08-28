@@ -2,7 +2,8 @@
 <a md-button (click)="onAddItem()">Add new</a>
 <app-bookshelves-item *ngFor="let bookshelf of bookshelves"
                       [bookshelf]="bookshelf"
-                      (click)="onItemSelected(bookshelf)"></app-bookshelves-item>
+                      (click)="onItemSelected(bookshelf)"
+                      [ngClass]="{'active': selectedBookshelf === bookshelf}"></app-bookshelves-item>
 <hr style="margin: 30px 0">
 <app-bookshelves-detailed *ngIf="isDetailed"
                           [bookshelf]="selectedBookshelf"

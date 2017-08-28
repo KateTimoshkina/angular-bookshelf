@@ -30,9 +30,10 @@ export class BookshelvesComponent implements OnInit {
   }
 
   onAddItem() {
-    // switch to editing new bookshelf
-    // promise ???
     this.addBookshelf.emit();
+    this.selectedBookshelf = this.bookshelves[this.bookshelves.length - 1];
+    this.isEditable = true;
+    this.isDetailed = false;
   }
 
   onEditItem(bookshelf: Bookshelf) {

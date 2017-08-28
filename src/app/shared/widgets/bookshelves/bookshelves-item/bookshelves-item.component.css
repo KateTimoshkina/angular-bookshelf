@@ -1,3 +1,8 @@
+:host.active md-card {
+  background-color: lightblue;
+}
+
+:host.active md-card:hover,
 md-card:hover{
   background-color: lightgray;
 }
