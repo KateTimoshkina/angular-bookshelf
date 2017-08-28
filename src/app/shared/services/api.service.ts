@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
-const API_SERVER = 'https://bookshelf-test-project-7fed0.firebaseio.com/';
+import { API_SERVER } from '../constants/url-constants';
 
 @Injectable()
 export class ApiService {

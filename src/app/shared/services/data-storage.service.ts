@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Author } from '../models/author.model';
 import { Book } from '../models/book.model';
 import { Bookshelf } from '../models/bookshelf.model';
+import { API_URL_PATH } from '../constants/url-constants';
 
 @Injectable()
 export class DataStorageService {
@@ -18,7 +19,7 @@ export class DataStorageService {
               private authorsService: AuthorsService) { }
 
   loadAuthors(): void {
-    this.apiService.get('authors')
+    this.apiService.get(API_URL_PATH.authors)
       .subscribe(
         (response: Response) => {
           // this.authorsService.setAuthors();
@@ -33,11 +34,11 @@ export class DataStorageService {
 
   storeAuthors(): Observable<Response> {
     const token = this.authService.getToken();
-    return this.apiService.put('authors', this.authorsService.getAuthors(), token);
+    return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors(), token);
   }
 
   loadBooks(): void {
-    this.apiService.get('books')
+    this.apiService.get(API_URL_PATH.books)
       .subscribe(
         (response: Response) => {
           const rawBooks: Array<any> = response.json();
@@ -51,13 +52,13 @@ export class DataStorageService {
 
   storeBooks(): Observable<Response> {
     const token = this.authService.getToken();
-    return this.apiService.put('books', this.booksService.getBooks(), token);
+    return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks(), token);
   }
 
   loadUserBookshelves(userId: string): Observable<Response> {
     // TODO: check if user has 'reader' role
     const token = this.authService.token;
-    const endPoint = 'bookshelves' + '/' + userId;
+    const endPoint = API_URL_PATH.bookshelves + '/' + userId;
     return this.apiService.get(endPoint, token);
   }
 
