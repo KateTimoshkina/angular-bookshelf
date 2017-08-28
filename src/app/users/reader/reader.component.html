@@ -10,7 +10,8 @@
   </div>
   <div style="width: 50%; float: left;">
     <app-bookshelves [bookshelves]="reader.bookshelves"
-                     (deleteBookshelf)="deleteUserBookshelf($event)"></app-bookshelves>
+                     (deleteBookshelf)="deleteUserBookshelf($event)"
+                     (addBookshelf)="addUserBookshelf()"></app-bookshelves>
   </div>
 </div>
 <div style="clear: both"></div>

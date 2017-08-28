@@ -8,6 +8,7 @@ import { Bookshelf } from '../../models/bookshelf.model';
 })
 export class BookshelvesComponent implements OnInit {
   @Output() deleteBookshelf = new EventEmitter<Bookshelf>();
+  @Output() addBookshelf = new EventEmitter();
   @Input() bookshelves: Bookshelf[];
   selectedBookshelf: Bookshelf;
   isDetailed = false;
@@ -29,7 +30,9 @@ export class BookshelvesComponent implements OnInit {
   }
 
   onAddItem() {
-
+    // switch to editing new bookshelf
+    // promise ???
+    this.addBookshelf.emit();
   }
 
   onEditItem(bookshelf: Bookshelf) {

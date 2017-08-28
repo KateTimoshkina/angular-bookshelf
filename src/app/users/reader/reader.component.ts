@@ -3,6 +3,7 @@ import { Reader } from '../../shared/models/reader.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
 import { Bookshelf } from '../../shared/models/bookshelf.model';
+import { config } from '../../shared/constants/configs';
 
 @Component({
   selector: 'app-reader',
@@ -41,6 +42,14 @@ export class ReaderComponent implements OnInit {
   deleteUserBookshelf(bookshelf: Bookshelf): void {
     const index = this.reader.bookshelves.indexOf(bookshelf);
     this.reader.bookshelves.splice(index, 1);
+  }
+
+  addUserBookshelf(): void {
+    const bookshelf = new Bookshelf({
+      id: this.dsService.generateUid(2),
+      title: config.BOOKSHELF_DEFAULT_TITLE
+    });
+    this.reader.bookshelves.push(bookshelf);
   }
 
 }

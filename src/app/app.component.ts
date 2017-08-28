@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { DataStorageService } from './shared/services/data-storage.service';
 import { AuthService } from './auth/auth.service';
-import { FIREBASE_CONFIG } from './shared/constants/configs';
+import { config } from './shared/constants/configs';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Initialize Firebase
-    firebase.initializeApp(FIREBASE_CONFIG);
+    firebase.initializeApp(config.FIREBASE_CONFIG);
 
     // Check if user is logged in
     this.authService.checkTokenInLocalStorage();
