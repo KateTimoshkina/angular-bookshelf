@@ -27,6 +27,7 @@ export class BookshelvesComponent implements OnInit {
       this.selectedBookshelf = bookshelf;
       this.isDetailed = true;
     }
+    this.isEditable = false;
   }
 
   onAddItem() {
