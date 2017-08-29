@@ -7,21 +7,21 @@ import { Bookshelf, BookWithStatus } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-edit.component.css']
 })
 export class BookshelvesEditComponent implements OnInit {
-  @Output() deleteBook = new EventEmitter<BookWithStatus>();
   @Output() deleteItem = new EventEmitter<Bookshelf>();
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
-  title: string;
+  _bookshelf: Bookshelf;
 
   constructor() { }
 
   ngOnInit() {
-    this.title = this.bookshelf.title;
+    this._bookshelf = this.bookshelf.copy();
   }
 
   onSaveItem() {
     // TODO: add empty field validation
-    this.bookshelf.title = this.title;
+    this.bookshelf.title = this._bookshelf.title;
+    this.bookshelf.books = this._bookshelf.books;
     this.saveItem.emit();
   }
 
@@ -33,8 +33,10 @@ export class BookshelvesEditComponent implements OnInit {
     this.deleteItem.emit(this.bookshelf);
   }
 
-  onDeleteBook(book: BookWithStatus) {
-    this.deleteBook.emit(book);
+  onDeleteBook(item: BookWithStatus) {
+    // TODO: add confirmation
+    const index = this._bookshelf.books.indexOf(item);
+    this._bookshelf.books.splice(index, 1);
   }
 
 }

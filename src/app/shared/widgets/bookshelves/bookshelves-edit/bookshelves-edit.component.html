@@ -1,13 +1,13 @@
 <h3>Edit your bookshelf</h3>
 <md-input-container>
-  <input type="text" mdInput placeholder="Title" [(ngModel)]="title">
+  <input type="text" mdInput placeholder="Title" [(ngModel)]="_bookshelf.title">
 </md-input-container>
 <br>
-<md-list class="padding-left-20" *ngIf="bookshelf.books.length > 0">
+<md-list class="padding-left-20" *ngIf="_bookshelf.books.length > 0">
   <h3 md-subheader>Books:</h3>
-  <md-list-item *ngFor="let book of bookshelf.books" style="cursor: pointer;">
-    {{ book.book.title }} - {{book.status}}
-    <button md-icon-button (click)="onDeleteBook(book)">
+  <md-list-item *ngFor="let item of _bookshelf.books" style="cursor: pointer;">
+    {{ item.book.title }} - {{item.status}}
+    <button md-icon-button (click)="onDeleteBook(item)">
       <md-icon>delete</md-icon>
     </button>
   </md-list-item>

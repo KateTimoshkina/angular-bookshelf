@@ -44,6 +44,10 @@ export class Bookshelf {
     this.books = input['books'];
   }
 
+  public copy(): Bookshelf {
+    return new Bookshelf(this);
+  }
+
   public get id(): string {
     return this._id;
   }

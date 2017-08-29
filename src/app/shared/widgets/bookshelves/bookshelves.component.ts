@@ -55,9 +55,4 @@ export class BookshelvesComponent implements OnInit {
     this.isEditable = false;
   }
 
-  onDeleteBook(item: BookWithStatus) {
-    const index = this.selectedBookshelf.books.indexOf(item);
-    this.selectedBookshelf.books.splice(index, 1);
-  }
-
 }
