@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {
-  MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdListModule,
+  MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdListModule, MdSelectModule,
   MdToolbarModule
 } from '@angular/material';
 
@@ -11,7 +11,8 @@ import {
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdIconModule
+    MdIconModule,
+    MdSelectModule
   ],
   exports: [
     MdButtonModule,
@@ -19,7 +20,8 @@ import {
     MdCardModule,
     MdInputModule,
     MdListModule,
-    MdIconModule
+    MdIconModule,
+    MdSelectModule
   ]
 })
 export class CustomMaterialModule {}

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Bookshelf, BookWithStatus } from '../../models/bookshelf.model';
-import { Book } from '../../models/book.model';
+import { Bookshelf } from '../../models/bookshelf.model';
 
 @Component({
   selector: 'app-bookshelves',

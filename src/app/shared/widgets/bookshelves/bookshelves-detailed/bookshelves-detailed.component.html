@@ -6,8 +6,10 @@
   </md-card-header>
   <md-card-content>
     <md-list *ngIf="bookshelf.books" class="padding-left-20">
+      <h3 md-subheader>Books:</h3>
       <md-list-item *ngFor="let book of bookshelf.books">
-        {{ book.book.title }} - {{book.status}}
+        <div md-line>{{ book.book.title }}</div>
+        <span md-line class="mat-body-1 mat-primary">{{book.status}}</span>
       </md-list-item>
     </md-list>
   </md-card-content>

@@ -1,24 +1,41 @@
 <h3>Edit your bookshelf</h3>
 <md-input-container>
-  <input type="text" mdInput placeholder="Title" [(ngModel)]="_bookshelf.title">
+  <input type="text"
+         mdInput
+         placeholder="Title"
+         [(ngModel)]="_bookshelf.title">
 </md-input-container>
 <br>
-<md-list class="padding-left-20" *ngIf="_bookshelf.books.length > 0">
+<md-list class="padding-left-20"
+         *ngIf="_bookshelf.books.length > 0">
   <h3 md-subheader>Books:</h3>
-  <md-list-item *ngFor="let item of _bookshelf.books" style="cursor: pointer;">
-    {{ item.book.title }} - {{item.status}}
+  <md-list-item *ngFor="let item of _bookshelf.books; let i = index" style="cursor: pointer;">
+    {{ item.book.title }}
+    <br>
+    <md-select placeholder="Status"
+               class="margin-left-20"
+               [(ngModel)]="_bookshelf.books[i].status"
+               (change)="onSelectChange($event)">
+      <md-option *ngFor="let status of statuses"
+                 [value]="status">{{ status }}</md-option>
+    </md-select>
     <button md-icon-button (click)="onDeleteBook(item)">
       <md-icon>delete</md-icon>
     </button>
   </md-list-item>
 </md-list>
 <br>
-<button md-button (click)="onCancelChanges()" class="mat-warn">Cancel</button>
-<button md-button (click)="onSaveItem()">
+<button md-button
+        (click)="onCancelChanges()"
+        class="mat-warn">Cancel</button>
+<button md-button
+        (click)="onSaveItem()">
   <md-icon>done</md-icon>
   Save changes
 </button>
-<button md-button (click)="onDeleteItem()"  color="primary">
+<button md-button
+        (click)="onDeleteItem()"
+        color="primary">
   <md-icon>delete</md-icon>
   Delete bookshelf
 </button>

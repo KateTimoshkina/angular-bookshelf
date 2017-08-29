@@ -1,34 +1,5 @@
-import { Book } from './book.model';
 import { Base } from '../interfaces/base.interface';
-
-export class BookWithStatus {
-  private _book: Book;
-  private _status: string;
-
-  constructor(input) {
-    if (!input) {
-      return;
-    }
-    this.book = input['book'];
-    this.status = input['status'];
-  }
-
-  public get book(): Book {
-    return this._book;
-  }
-
-  public set book(value: Book) {
-    this._book = new Book(value);
-  }
-
-  public get status(): string {
-    return this._status;
-  }
-
-  public set status(value: string) {
-    this._status = value;
-  }
-}
+import { BookWithStatus } from './book-with-status.model';
 
 export class Bookshelf implements Base {
   private _id: string;
