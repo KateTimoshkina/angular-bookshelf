@@ -19,23 +19,22 @@
       <md-option *ngFor="let status of statuses"
                  [value]="status">{{ status }}</md-option>
     </md-select>
-    <button md-icon-button (click)="onDeleteBook(item)">
+    <button md-icon-button
+            (click)="onDeleteBook(item)"
+            color="primary"
+            class="mat-raised-button margin-left-20">
       <md-icon>delete</md-icon>
     </button>
   </md-list-item>
 </md-list>
 <br>
 <button md-button
-        (click)="onCancelChanges()"
-        class="mat-warn">Cancel</button>
-<button md-button
+        color="primary"
+        class="mat-raised-button"
         (click)="onSaveItem()">
   <md-icon>done</md-icon>
   Save changes
 </button>
 <button md-button
-        (click)="onDeleteItem()"
-        color="primary">
-  <md-icon>delete</md-icon>
-  Delete bookshelf
-</button>
+        class="mat-raised-button"
+        (click)="onCancelChanges()">Cancel</button>

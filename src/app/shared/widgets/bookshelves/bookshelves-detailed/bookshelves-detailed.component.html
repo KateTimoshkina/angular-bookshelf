@@ -14,9 +14,18 @@
     </md-list>
   </md-card-content>
   <md-card-actions>
-    <button md-button (click)="onEdit()" color="primary">
+    <button md-button
+            (click)="onEdit()"
+            color="primary"
+            class="mat-raised-button">
       <md-icon>mode_edit</md-icon>
       Edit
+    </button>
+    <button md-button
+            (click)="onDelete()"
+            class="mat-raised-button mat-warn">
+      <md-icon>delete</md-icon>
+      Delete bookshelf
     </button>
   </md-card-actions>
 </md-card>

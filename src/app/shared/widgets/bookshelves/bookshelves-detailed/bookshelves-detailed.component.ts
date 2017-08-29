@@ -7,6 +7,7 @@ import { Bookshelf } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-detailed.component.css']
 })
 export class BookshelvesDetailedComponent implements OnInit {
+  @Output() deleteItem = new EventEmitter<Bookshelf>();
   @Output() editItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
 
@@ -17,6 +18,10 @@ export class BookshelvesDetailedComponent implements OnInit {
 
   onEdit() {
     this.editItem.emit(this.bookshelf);
+  }
+
+  onDelete() {
+    this.deleteItem.emit(this.bookshelf);
   }
 
 }

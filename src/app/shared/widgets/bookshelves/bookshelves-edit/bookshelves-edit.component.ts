@@ -10,7 +10,6 @@ import { MdSelectChange } from '@angular/material';
   styleUrls: ['./bookshelves-edit.component.css']
 })
 export class BookshelvesEditComponent implements OnInit {
-  @Output() deleteItem = new EventEmitter<Bookshelf>();
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
   statuses = BOOK_STATUS;
@@ -31,10 +30,6 @@ export class BookshelvesEditComponent implements OnInit {
 
   onCancelChanges() {
     this.saveItem.emit();
-  }
-
-  onDeleteItem() {
-    this.deleteItem.emit(this.bookshelf);
   }
 
   onDeleteBook(item: BookWithStatus) {
