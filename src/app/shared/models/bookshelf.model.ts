@@ -1,6 +1,6 @@
 import { Book } from './book.model';
 
-class BookWithStatus {
+export class BookWithStatus {
   private _book: Book;
   private _status: string;
 

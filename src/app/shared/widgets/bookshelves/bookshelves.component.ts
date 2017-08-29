@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Bookshelf } from '../../models/bookshelf.model';
+import { Bookshelf, BookWithStatus } from '../../models/bookshelf.model';
+import { Book } from '../../models/book.model';
 
 @Component({
   selector: 'app-bookshelves',
@@ -52,6 +53,11 @@ export class BookshelvesComponent implements OnInit {
     // TODO: add confirmation
     this.deleteBookshelf.emit(bookshelf);
     this.isEditable = false;
+  }
+
+  onDeleteBook(item: BookWithStatus) {
+    const index = this.selectedBookshelf.books.indexOf(item);
+    this.selectedBookshelf.books.splice(index, 1);
   }
 
 }

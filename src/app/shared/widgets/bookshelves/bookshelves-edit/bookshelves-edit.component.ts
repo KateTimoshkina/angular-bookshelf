@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Bookshelf } from '../../../models/bookshelf.model';
+import { Bookshelf, BookWithStatus } from '../../../models/bookshelf.model';
 
 @Component({
   selector: 'app-bookshelves-edit',
@@ -7,6 +7,7 @@ import { Bookshelf } from '../../../models/bookshelf.model';
   styleUrls: ['./bookshelves-edit.component.css']
 })
 export class BookshelvesEditComponent implements OnInit {
+  @Output() deleteBook = new EventEmitter<BookWithStatus>();
   @Output() deleteItem = new EventEmitter<Bookshelf>();
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
@@ -30,6 +31,10 @@ export class BookshelvesEditComponent implements OnInit {
 
   onDeleteItem() {
     this.deleteItem.emit(this.bookshelf);
+  }
+
+  onDeleteBook(book: BookWithStatus) {
+    this.deleteBook.emit(book);
   }
 
 }
