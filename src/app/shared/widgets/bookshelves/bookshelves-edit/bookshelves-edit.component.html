@@ -9,13 +9,12 @@
 <md-list class="padding-left-20"
          *ngIf="_bookshelf.books.length > 0">
   <h3 md-subheader>Books:</h3>
-  <md-list-item *ngFor="let item of _bookshelf.books; let i = index" style="cursor: pointer;">
+  <md-list-item *ngFor="let item of _bookshelf.books" style="cursor: pointer;">
     {{ item.book.title }}
     <br>
     <md-select placeholder="Status"
                class="margin-left-20"
-               [(ngModel)]="_bookshelf.books[i].status"
-               (change)="onSelectChange($event)">
+               [(ngModel)]="item.status">
       <md-option *ngFor="let status of statuses"
                  [value]="status">{{ status }}</md-option>
     </md-select>

@@ -26,7 +26,7 @@ export class BookWithStatus {
   }
 
   public set status(value: string) {
-    if (value in BOOK_STATUS) {
+    if (BOOK_STATUS.indexOf(value) > -1) {
       this._status = value;
     } else {
       this._status = BOOK_STATUS[0];

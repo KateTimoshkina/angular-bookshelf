@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Bookshelf } from '../../../models/bookshelf.model';
 import { BookWithStatus } from '../../../models/book-with-status.model';
 import { BOOK_STATUS } from '../../../constants/constants';
-import { MdSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-bookshelves-edit',
@@ -36,9 +35,6 @@ export class BookshelvesEditComponent implements OnInit {
     // TODO: add confirmation
     const index = this._bookshelf.books.indexOf(item);
     this._bookshelf.books.splice(index, 1);
-  }
-  onSelectChange(data: MdSelectChange) {
-    console.log(data.value, this._bookshelf.books);
   }
 
 }
