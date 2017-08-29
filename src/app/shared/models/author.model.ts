@@ -1,6 +1,7 @@
 import { Book } from './book.model';
+import { Base } from '../interfaces/base.interface';
 
-export class Author {
+export class Author implements Base {
   public _id: string;
   public _firstName: string;
   public _lastName: string;
@@ -15,6 +16,10 @@ export class Author {
     this.yearOfBirth = input['yearOfBirth'] || null;
     this.bio = input['bio'] || null;
     this.books = input['books'] || null;
+  }
+
+  public clone(): Author {
+    return new Author(this);
   }
 
   public get id(): string {

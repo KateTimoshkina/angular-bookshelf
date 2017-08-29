@@ -1,6 +1,7 @@
 import { Bookshelf } from './bookshelf.model';
+import { Base } from '../interfaces/base.interface';
 
-export class Reader {
+export class Reader implements Base {
   private _id: string;
   private _fullName: string;
   private _login: string;
@@ -19,6 +20,10 @@ export class Reader {
     this.imageUrl = input['imageUrl'] || null;
     this.bookshelves = input['bookshelves'] || null;
 
+  }
+
+  public clone(): Reader {
+    return new Reader(this);
   }
 
   public get id(): string {

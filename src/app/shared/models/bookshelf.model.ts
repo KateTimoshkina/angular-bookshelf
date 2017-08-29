@@ -1,4 +1,5 @@
 import { Book } from './book.model';
+import { Base } from '../interfaces/base.interface';
 
 export class BookWithStatus {
   private _book: Book;
@@ -29,7 +30,7 @@ export class BookWithStatus {
   }
 }
 
-export class Bookshelf {
+export class Bookshelf implements Base {
   private _id: string;
   private _title: string;
   private _books: BookWithStatus[];
@@ -44,7 +45,7 @@ export class Bookshelf {
     this.books = input['books'];
   }
 
-  public copy(): Bookshelf {
+  public clone(): Bookshelf {
     return new Bookshelf(this);
   }
 

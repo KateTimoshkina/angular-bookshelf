@@ -15,7 +15,7 @@ export class BookshelvesEditComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this._bookshelf = this.bookshelf.copy();
+    this._bookshelf = this.bookshelf.clone();
   }
 
   onSaveItem() {

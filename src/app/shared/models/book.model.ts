@@ -1,6 +1,7 @@
 import { Author } from './author.model';
+import { Base } from '../interfaces/base.interface';
 
-export class Book {
+export class Book implements Base {
   private _id: string;
   private _title: string;
   private _authors: Author[];
@@ -18,6 +19,10 @@ export class Book {
     this.publishingYear = input['publishingYear'] || null;
     this.series = input['series'] || null;
 
+  }
+
+  public clone(): Book {
+    return new Book(this);
   }
 
   public get id(): string {
