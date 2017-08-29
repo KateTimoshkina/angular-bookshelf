@@ -11,47 +11,50 @@ export class BookshelvesComponent implements OnInit {
   @Output() addBookshelf = new EventEmitter();
   @Input() bookshelves: Bookshelf[];
   selectedBookshelf: Bookshelf;
-  isDetailed = false;
-  isEditable = false;
+  isDetailed: boolean;
+  isEditable: boolean;
 
   constructor() { }
 
+  private switchMode(isEditable: boolean, isDetailed: boolean) {
+    this.isDetailed = isDetailed;
+    this.isEditable = isEditable;
+  }
+
   ngOnInit() {
     this.selectedBookshelf = null;
+    this.switchMode(false, false);
   }
 
   onItemSelected(bookshelf: Bookshelf) {
     if (this.selectedBookshelf === bookshelf) {
-      this.isDetailed = !this.isDetailed;
+      this.switchMode(false, !this.isDetailed);
     } else {
       this.selectedBookshelf = bookshelf;
-      this.isDetailed = true;
+      this.switchMode(false, true);
     }
-    this.isEditable = false;
   }
 
   onAddItem() {
     this.addBookshelf.emit();
     this.selectedBookshelf = this.bookshelves[this.bookshelves.length - 1];
-    this.isEditable = true;
-    this.isDetailed = false;
+    this.switchMode(true, false);
+
   }
 
   onEditItem(bookshelf: Bookshelf) {
-    this.isDetailed = false;
-    this.isEditable = true;
     this.selectedBookshelf = bookshelf;
+    this.switchMode(true, false);
   }
 
   onSaveItem() {
-    this.isDetailed = true;
-    this.isEditable = false;
+    this.switchMode(false, true);
   }
 
   onDeleteItem(bookshelf: Bookshelf) {
     // TODO: add confirmation
     this.deleteBookshelf.emit(bookshelf);
-    this.isEditable = false;
+    this.switchMode(false, false);
   }
 
 }
