@@ -12,13 +12,16 @@ import { Book } from '../../shared/models/book.model';
   styleUrls: ['./reader.component.css']
 })
 export class ReaderComponent implements OnInit {
+  _reader: Reader = null;
   reader: Reader = null;
+  isEditable: boolean;
 
   constructor(private authService: AuthService,
               private dsService: DataStorageService) {
   }
 
   ngOnInit() {
+    this.isEditable = false;
     const authUser = this.authService.getUser();
     const userUid = authUser.uid;
     const rawReader = {
@@ -33,6 +36,7 @@ export class ReaderComponent implements OnInit {
         (response) => {
           rawReader.bookshelves = response.json();
           this.reader = new Reader(rawReader);
+          this._reader = this.reader.clone();
         },
         (error) => {
           console.error(error);
@@ -51,6 +55,20 @@ export class ReaderComponent implements OnInit {
       title: config.BOOKSHELF_DEFAULT_TITLE
     });
     this.reader.bookshelves.push(bookshelf);
+  }
+
+  onEdit() {
+    this.isEditable = true;
+  }
+
+  onSave() {
+    // TODO: save updated data to firebase
+    this.reader = this._reader;
+    this.isEditable = false;
+  }
+
+  onCancel() {
+    this.isEditable = false;
   }
 
 }
