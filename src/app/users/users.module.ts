@@ -8,6 +8,7 @@ import { CustomMaterialModule } from '../core/custom-material.module';
 import { PublisherComponent } from './publisher/publisher.component';
 import { FormsModule } from '@angular/forms';
 import { ReaderEditComponent } from './reader/reader-edit/reader-edit.component';
+import { ReaderDetailComponent } from './reader/reader-detail/reader-detail.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ReaderEditComponent } from './reader/reader-edit/reader-edit.component'
   declarations: [
     ReaderComponent,
     PublisherComponent,
-    ReaderEditComponent
+    ReaderEditComponent,
+    ReaderDetailComponent
   ]
 })
 export class UsersModule { }

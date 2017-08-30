@@ -1,0 +1,19 @@
+<md-card>
+  <div *ngIf="reader.imageUrl"
+       style="width: 100px; margin: 20px auto 0">
+    <img md-card-image src="{{ reader.imageUrl }}">
+  </div>
+  <md-card-content>
+    <p *ngIf="!!reader.fullName">{{ reader.fullName }}</p>
+    <p *ngIf="!!reader.login">{{ reader.login }}</p>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button
+            (click)="onEdit()"
+            color="primary"
+            class="mat-raised-button">
+      <md-icon>mode_edit</md-icon>
+      Edit
+    </button>
+  </md-card-actions>
+</md-card>
