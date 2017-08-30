@@ -6,7 +6,7 @@ export class Book implements Base {
   private _title: string;
   private _authors: Author[];
   private _publishingYear: number;
-  private _series: string;
+  private _description: string;
 
   constructor(input) {
     if (!input) {
@@ -17,7 +17,7 @@ export class Book implements Base {
     this.title = input['title'] || null;
     this.authors = input['authors'] || null;
     this.publishingYear = input['publishingYear'] || null;
-    this.series = input['series'] || null;
+    this.description = input['description'] || null;
 
   }
 
@@ -62,11 +62,11 @@ export class Book implements Base {
     this._publishingYear = value;
   }
 
-  public get series(): string {
-    return this._series;
+  public get description(): string {
+    return this._description;
   }
 
-  public set series(value: string) {
-    this._series = value;
+  public set description(value: string) {
+    this._description = value;
   }
 }
