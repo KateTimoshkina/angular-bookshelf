@@ -11,7 +11,6 @@ import { config } from '../../shared/constants/configs';
   styleUrls: ['./reader.component.css']
 })
 export class ReaderComponent implements OnInit {
-  _reader: Reader = null;
   reader: Reader = null;
   isEditable: boolean;
 
@@ -35,7 +34,6 @@ export class ReaderComponent implements OnInit {
         (response) => {
           rawReader.bookshelves = response.json();
           this.reader = new Reader(rawReader);
-          this._reader = this.reader.clone();
         },
         (error) => {
           console.error(error);
@@ -68,16 +66,19 @@ export class ReaderComponent implements OnInit {
     this.isEditable = true;
   }
 
-  onSave(profile: {displayName: string, photoURL: string}) {
+  onSave(reader: Reader) {
+    this.reader = reader;
+    const profile = {
+      displayName: this.reader.fullName,
+      photoURL: this.reader.imageUrl
+    };
     this.authService.updatedUserProfile(profile)
       .then(
         () => {
           this.onCancel();
         })
       .catch(
-        (error) => {
-          console.error(error);
-        }
+        (error) => console.error(error)
       )
     ;
   }

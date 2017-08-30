@@ -8,22 +8,18 @@ import { Reader } from '../../../shared/models/reader.model';
 })
 export class ReaderEditComponent implements OnInit {
   @Output() cancelChanges = new EventEmitter();
-  @Output() saveChanges = new EventEmitter();
+  @Output() saveChanges = new EventEmitter<Reader>();
   @Input() reader: Reader;
   _reader: Reader = null;
 
   constructor() { }
 
   ngOnInit() {
-    this._reader = this.reader;
+    this._reader = this.reader.clone();
   }
 
   onSave() {
-    const profile = {
-      displayName: this._reader.fullName,
-      photoURL: this._reader.imageUrl
-    };
-    this.saveChanges.emit(profile);
+    this.saveChanges.emit(this._reader);
   }
 
   onCancel() {
