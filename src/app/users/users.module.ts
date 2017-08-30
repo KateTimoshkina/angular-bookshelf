@@ -7,6 +7,7 @@ import { ROUTES as userRoutes } from './users.routes';
 import { CustomMaterialModule } from '../core/custom-material.module';
 import { PublisherComponent } from './publisher/publisher.component';
 import { FormsModule } from '@angular/forms';
+import { ReaderEditComponent } from './reader/reader-edit/reader-edit.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [
     ReaderComponent,
-    PublisherComponent
+    PublisherComponent,
+    ReaderEditComponent
   ]
 })
 export class UsersModule { }

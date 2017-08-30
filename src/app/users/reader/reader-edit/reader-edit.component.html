@@ -1,0 +1,30 @@
+<md-card>
+  <md-card-content>
+    <div *ngIf="_reader.imageUrl"
+         style="width: 100px; margin: 20px auto 0">
+      <img md-card-image
+           src="{{ _reader.imageUrl }}">
+    </div>
+    <md-input-container style="display: block">
+      <input mdInput placeholder="Photo URL" [(ngModel)]="_reader.imageUrl">
+    </md-input-container>
+    <md-input-container style="display: block">
+      <input mdInput placeholder="Full Name" [(ngModel)]="_reader.fullName">
+    </md-input-container>
+    <md-input-container style="display: block">
+      <input mdInput placeholder="Login" [(ngModel)]="_reader.login">
+    </md-input-container>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button
+            color="primary"
+            class="mat-raised-button"
+            (click)="onSave()">
+      <md-icon>done</md-icon>
+      Save changes
+    </button>
+    <button md-button
+            class="mat-raised-button"
+            (click)="onCancel()">Cancel</button>
+  </md-card-actions>
+</md-card>
