@@ -62,6 +62,10 @@ export class AuthService {
     this.user = user;
   }
 
+  updatedUserProfile(profile: {displayName: string, photoURL: string}): firebase.Promise<void> {
+    return firebase.auth().currentUser.updateProfile(profile);
+  }
+
   isAuthenticated(): boolean {
     return !!this.token;
   }

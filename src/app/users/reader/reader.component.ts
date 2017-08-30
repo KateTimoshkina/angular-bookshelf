@@ -64,7 +64,22 @@ export class ReaderComponent implements OnInit {
   onSave() {
     // TODO: save updated data to firebase
     this.reader = this._reader;
-    this.isEditable = false;
+    const profile = {
+      displayName: this.reader.fullName,
+      photoURL: this.reader.imageUrl
+    };
+    this.authService.updatedUserProfile(profile)
+      .then(
+        () => {
+
+          this.isEditable = false;
+        })
+      .catch(
+        (error) => {
+          console.error(error);
+        }
+      )
+    ;
   }
 
   onCancel() {
