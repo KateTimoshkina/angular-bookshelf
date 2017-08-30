@@ -20,6 +20,9 @@
     </form>
   </md-card-content>
   <md-card-actions>
-    <button md-button (click)="onSignIn(signInForm)">{{ "Sign in" | uppercase }}</button>
+    <button md-button
+            class="mat-raised-button"
+            color="primary"
+            (click)="onSignIn(signInForm)">{{ "Sign in" | uppercase }}</button>
   </md-card-actions>
 </md-card>

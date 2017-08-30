@@ -1,5 +1,6 @@
-<div style="clear: both;" *ngIf="reader">
-  <div style="width: 50%; float: left;">
+<div *ngIf="reader" class="pure-g">
+
+  <div class="pure-u-1-2 padding-20 border-box">
 
     <app-reader-edit *ngIf="isEditable; else editable"
                      [reader]="reader"
@@ -11,10 +12,11 @@
     </ng-template>
 
   </div>
-  <div style="width: 50%; float: left;">
+
+  <div class="pure-u-1-2 padding-20 border-box">
     <app-bookshelves [bookshelves]="reader.bookshelves"
                      (deleteBookshelf)="deleteUserBookshelf($event)"
                      (addBookshelf)="addUserBookshelf()"></app-bookshelves>
   </div>
+
 </div>
-<div style="clear: both"></div>

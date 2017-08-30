@@ -1,10 +1,17 @@
-<p>User bookshelves</p>
-<a md-button (click)="onAddItem()">Add new</a>
+<h2 class="mat-headline">User bookshelves</h2>
+<a md-button
+   (click)="onAddItem()"
+   class="mat-raised-button"
+    color="primary">Add new</a>
+<br><br>
+
 <app-bookshelves-item *ngFor="let bookshelf of bookshelves"
                       [bookshelf]="bookshelf"
                       (click)="onItemSelected(bookshelf)"
                       [ngClass]="{'active': selectedBookshelf === bookshelf}"></app-bookshelves-item>
-<hr style="margin: 30px 0">
+
+<hr *ngIf="isDetailed || isEditable" style="margin: 30px 0">
+
 <app-bookshelves-detailed *ngIf="isDetailed"
                           [bookshelf]="selectedBookshelf"
                           (editItem)="onEditItem($event)"

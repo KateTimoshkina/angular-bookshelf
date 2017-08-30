@@ -7,3 +7,11 @@
 .margin-left-20{
   margin-left: 20px;
 }
+
+.padding-20 {
+  padding: 20px;
+}
+
+.border-box{
+  box-sizing: border-box;
+}

@@ -4,7 +4,6 @@ import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
 import { Bookshelf } from '../../shared/models/bookshelf.model';
 import { config } from '../../shared/constants/configs';
-import { Book } from '../../shared/models/book.model';
 
 @Component({
   selector: 'app-reader',
