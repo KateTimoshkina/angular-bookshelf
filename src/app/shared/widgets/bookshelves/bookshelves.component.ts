@@ -7,10 +7,12 @@ import { Bookshelf } from '../../models/bookshelf.model';
   styleUrls: ['./bookshelves.component.css']
 })
 export class BookshelvesComponent implements OnInit {
+  @Output() saveBookshelves = new EventEmitter();
   @Output() deleteBookshelf = new EventEmitter<Bookshelf>();
   @Output() addBookshelf = new EventEmitter();
   @Input() bookshelves: Bookshelf[];
   selectedBookshelf: Bookshelf;
+  hasChanges: boolean;
   isDetailed: boolean;
   isEditable: boolean;
 
@@ -39,12 +41,23 @@ export class BookshelvesComponent implements OnInit {
     this.addBookshelf.emit();
     this.selectedBookshelf = this.bookshelves[this.bookshelves.length - 1];
     this.switchMode(true, false);
+    this.hasChanges = true;
 
   }
 
   onEditItem(bookshelf: Bookshelf) {
     this.selectedBookshelf = bookshelf;
     this.switchMode(true, false);
+  }
+
+  onItemChanged() {
+    this.hasChanges = true;
+  }
+
+  onSaveItems() {
+    this.hasChanges = false;
+    this.switchMode(false, false);
+    this.saveBookshelves.emit(this.bookshelves);
   }
 
   onSaveItem() {
@@ -55,6 +68,7 @@ export class BookshelvesComponent implements OnInit {
     // TODO: add confirmation
     this.deleteBookshelf.emit(bookshelf);
     this.switchMode(false, false);
+    this.hasChanges = true;
   }
 
 }

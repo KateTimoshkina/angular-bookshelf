@@ -62,6 +62,12 @@ export class DataStorageService {
     return this.apiService.get(endPoint, token);
   }
 
+  storeUserBookshelves(userId: string, bookshelves: Bookshelf[]): Observable<Response> {
+    const token = this.authService.token;
+    const endPoint = API_URL_PATH.bookshelves + '/' + userId;
+    return this.apiService.put(endPoint, bookshelves, token);
+  }
+
   public generateUid(repeatNumber: number): string {
     let result = '';
     for (let i = 0; i < repeatNumber; i++) {

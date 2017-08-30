@@ -3,6 +3,12 @@
    (click)="onAddItem()"
    class="mat-raised-button"
     color="primary">Add new</a>
+<a md-button
+   *ngIf="hasChanges"
+   (click)="onSaveItems()"
+   class="mat-raised-button">
+  <md-icon>done</md-icon>
+  Save changes</a>
 <br><br>
 
 <app-bookshelves-item *ngFor="let bookshelf of bookshelves"
@@ -18,4 +24,5 @@
                           (deleteItem)="onDeleteItem($event)"></app-bookshelves-detailed>
 <app-bookshelves-edit *ngIf="isEditable"
                       [bookshelf]="selectedBookshelf"
-                      (saveItem)="onSaveItem()"></app-bookshelves-edit>
+                      (saveItem)="onSaveItem()"
+                      (itemChanged)="onItemChanged()"></app-bookshelves-edit>

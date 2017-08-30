@@ -30,7 +30,8 @@
 <button md-button
         color="primary"
         class="mat-raised-button"
-        (click)="onSaveItem()">
+        (click)="onSaveItem()"
+        [disabled]="!_bookshelf.title">
   <md-icon>done</md-icon>
   Save changes
 </button>

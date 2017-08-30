@@ -43,6 +43,14 @@ export class ReaderComponent implements OnInit {
       );
   }
 
+  saveUserBookshelves(bookshelves: Bookshelf[]): void {
+    const userId = this.reader.id;
+    this.dsService.storeUserBookshelves(userId, bookshelves)
+      .subscribe(
+        (response) => console.log(response)
+      );
+  }
+
   deleteUserBookshelf(bookshelf: Bookshelf): void {
     const index = this.reader.bookshelves.indexOf(bookshelf);
     this.reader.bookshelves.splice(index, 1);

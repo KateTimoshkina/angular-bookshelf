@@ -9,6 +9,7 @@ import { BOOK_STATUS } from '../../../constants/constants';
   styleUrls: ['./bookshelves-edit.component.css']
 })
 export class BookshelvesEditComponent implements OnInit {
+  @Output() itemChanged = new EventEmitter();
   @Output() saveItem = new EventEmitter();
   @Input() bookshelf: Bookshelf;
   statuses = BOOK_STATUS;
@@ -21,10 +22,15 @@ export class BookshelvesEditComponent implements OnInit {
   }
 
   onSaveItem() {
-    // TODO: add empty field validation
-    this.bookshelf.title = this._bookshelf.title;
-    this.bookshelf.books = this._bookshelf.books;
-    this.saveItem.emit();
+    if (this.bookshelf.title !== this._bookshelf.title) {
+      this.bookshelf.title = this._bookshelf.title;
+      this.itemChanged.emit();
+    }
+    if (JSON.stringify(this.bookshelf) !== JSON.stringify(this._bookshelf)) {
+      this.bookshelf.books = this._bookshelf.books;
+      this.itemChanged.emit();
+    }
+    this.onCancelChanges();
   }
 
   onCancelChanges() {

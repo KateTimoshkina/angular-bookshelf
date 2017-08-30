@@ -15,6 +15,7 @@
 
   <div class="pure-u-1-2 padding-20 border-box">
     <app-bookshelves [bookshelves]="reader.bookshelves"
+                     (saveBookshelves)="saveUserBookshelves($event)"
                      (deleteBookshelf)="deleteUserBookshelf($event)"
                      (addBookshelf)="addUserBookshelf()"></app-bookshelves>
   </div>
