@@ -11,7 +11,7 @@
   Save changes</a>
 <br><br>
 
-<app-bookshelves-item *ngFor="let bookshelf of bookshelves"
+<app-bookshelves-item *ngFor="let bookshelf of _bookshelves"
                       [bookshelf]="bookshelf"
                       (click)="onItemSelected(bookshelf)"
                       [ngClass]="{'active': selectedBookshelf === bookshelf}"></app-bookshelves-item>
