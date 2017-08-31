@@ -9,6 +9,7 @@ import { Author } from '../models/author.model';
 import { Book } from '../models/book.model';
 import { Bookshelf } from '../models/bookshelf.model';
 import { API_URL_PATH } from '../constants/url-constants';
+import { USER_ROLES } from '../constants/constants';
 
 @Injectable()
 export class DataStorageService {
@@ -16,13 +17,13 @@ export class DataStorageService {
   constructor(private apiService: ApiService,
               private authService: AuthService,
               private booksService: BooksService,
-              private authorsService: AuthorsService) { }
+              private authorsService: AuthorsService) {
+  }
 
   loadAuthors(): void {
     this.apiService.get(API_URL_PATH.authors)
       .subscribe(
         (response: Response) => {
-          // this.authorsService.setAuthors();
           const rawAuthors: Array<any> = response.json();
           this.authorsService.setAuthors(
             rawAuthors.map((item: any) => new Author(item))
@@ -33,8 +34,10 @@ export class DataStorageService {
   }
 
   storeAuthors(): Observable<Response> {
-    const token = this.authService.getToken();
-    return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors(), token);
+    if (this.authService.role === USER_ROLES.PUBLISHER) {
+      const token = this.authService.getToken();
+      return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors(), token);
+    }
   }
 
   loadBooks(): void {
@@ -51,21 +54,26 @@ export class DataStorageService {
   }
 
   storeBooks(): Observable<Response> {
-    const token = this.authService.getToken();
-    return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks(), token);
+    if (this.authService.role === USER_ROLES.PUBLISHER) {
+      const token = this.authService.getToken();
+      return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks(), token);
+    }
   }
 
   loadUserBookshelves(userId: string): Observable<Response> {
-    // TODO: check if user has 'reader' role
-    const token = this.authService.token;
-    const endPoint = API_URL_PATH.bookshelves + '/' + userId;
-    return this.apiService.get(endPoint, token);
+    if (this.authService.role === USER_ROLES.READER) {
+      const token = this.authService.token;
+      const endPoint = API_URL_PATH.bookshelves + '/' + userId;
+      return this.apiService.get(endPoint, token);
+    }
   }
 
   storeUserBookshelves(userId: string, bookshelves: Bookshelf[]): Observable<Response> {
-    const token = this.authService.token;
-    const endPoint = API_URL_PATH.bookshelves + '/' + userId;
-    return this.apiService.put(endPoint, bookshelves, token);
+    if (this.authService.role === USER_ROLES.READER) {
+      const token = this.authService.token;
+      const endPoint = API_URL_PATH.bookshelves + '/' + userId;
+      return this.apiService.put(endPoint, bookshelves, token);
+    }
   }
 
   public generateUid(repeatNumber: number): string {

@@ -1,22 +1,31 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { API_URL_PATH } from '../shared/constants/url-constants';
+import { ApiService } from '../shared/services/api.service';
 
 @Injectable()
 export class AuthService {
   user: firebase.User;
   token: string;
+  role: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              private apiService: ApiService) { }
 
   singIn(email: string, password: string): void {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(
         (user: firebase.User) => {
           firebase.auth().currentUser.getToken()
-            .then((token: string) => this.token = token);
-          this.user = user;
-          this.router.navigate(['/profile']);
+            .then(
+              (token: string) => {
+                this.token = token;
+                this.user = user;
+                this.getUserRole();
+                this.router.navigate(['/profile']);
+              }
+            );
         }
       )
       .catch(
@@ -79,6 +88,15 @@ export class AuthService {
       this.setUser(user);
       this.setToken(user['stsTokenManager']['accessToken']);
     }
+  }
+
+  getUserRole() {
+    const token = this.token;
+    const endPoint = API_URL_PATH.roles + '/' + this.user.uid;
+    return this.apiService.get(endPoint, token)
+      .subscribe(
+        (response) => console.log(response.json())
+      );
   }
 
 }
