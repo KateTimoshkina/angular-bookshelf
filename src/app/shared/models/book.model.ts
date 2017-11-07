@@ -15,8 +15,8 @@ export class Book implements Base {
 
     this.id = input['id'];
     this.title = input['title'] || null;
-    this.authors = input['authors'] || null;
-    this.publishingYear = input['publishingYear'] || null;
+    this.authors = input['authors'] || [];
+    this.publishingYear = input['publishing_year'] || null;
     this.description = input['description'] || null;
 
   }
@@ -48,7 +48,7 @@ export class Book implements Base {
   public set authors(value: Author[]) {
     this._authors = [];
     if (value) {
-      for (const item in value) {
+      for (const item of value) {
         this._authors.push(item ? new Author(item) : null);
       }
     }

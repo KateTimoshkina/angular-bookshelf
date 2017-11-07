@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Author } from '../../shared/models/author.model';
 import { ActivatedRoute, Params } from '@angular/router';
-import { AuthorsService } from '../authors.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-authors-detailed',
@@ -10,14 +11,26 @@ import { AuthorsService } from '../authors.service';
 })
 export class AuthorsDetailedComponent implements OnInit {
   author: Author;
+  locked: boolean;
 
   constructor(private route: ActivatedRoute,
-              private authorsService: AuthorsService) { }
+              private dsService: DataStorageService) { }
 
   ngOnInit() {
-    this.route.params.subscribe(
+    const me = this;
+    me.locked = true;
+    me.route.params.subscribe(
       (params: Params) => {
-        this.author = this.authorsService.getAuthor(params['authorId']);
+        me.dsService.getAuthor(params['authorId'])
+          .subscribe(
+            (response: Response) => {
+              const data = response.json();
+              const rawAuthor = data.payload;
+              me.author = new Author(rawAuthor);
+              console.log(me.author);
+              me.locked = false;
+            }
+          );
       }
     );
   }

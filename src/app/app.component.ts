@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Initialize Firebase
-    firebase.initializeApp(config.FIREBASE_CONFIG);
+    // firebase.initializeApp(config.FIREBASE_CONFIG);
 
     // Check if user is logged in
-    this.authService.checkTokenInLocalStorage();
+    // this.authService.checkTokenInLocalStorage();
 
     // Loading data from server
     this.dsService.loadBooks();

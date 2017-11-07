@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Bookshelf } from '../../models/bookshelf.model';
 import { DataStorageService } from '../../services/data-storage.service';
 import { config } from '../../constants/configs';
+import { AuthService } from '../../../auth/auth.service';
+import { User } from '../../models/user.model';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-bookshelves',
@@ -13,11 +16,13 @@ export class BookshelvesComponent implements OnInit {
   @Input() bookshelves: Bookshelf[];
   selectedBookshelf: Bookshelf;
   _bookshelves: Bookshelf[];
+  user: User;
   hasChanges: boolean;
   isDetailed: boolean;
   isEditable: boolean;
 
-  constructor(private dsService: DataStorageService) { }
+  constructor(private dsService: DataStorageService,
+              private authService: AuthService) { }
 
   private switchMode(isEditable: boolean, isDetailed: boolean) {
     this.isDetailed = isDetailed;
@@ -25,11 +30,12 @@ export class BookshelvesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.authService.getUser();
     this.selectedBookshelf = null;
     this.switchMode(false, false);
     // creating local bookshelves copy
     this._bookshelves = [];
-    for (const item of this._bookshelves) {
+    for (const item of this.bookshelves) {
       this._bookshelves.push(item.clone());
     }
   }
@@ -44,14 +50,19 @@ export class BookshelvesComponent implements OnInit {
   }
 
   onAddItem() {
-    const newItem = new Bookshelf({
-      id: this.dsService.generateUid(2),
+    // TODO: update default title to prevent duplicates
+    const rawBookshelf = {
       title: config.BOOKSHELF_DEFAULT_TITLE
-    });
-    this._bookshelves.push(newItem);
-    this.selectedBookshelf = null;
-    // TODO: check for changes
-    this.checkForChanges();
+    };
+    const newItem = new Bookshelf(rawBookshelf);
+    this.dsService.createUserBookshelf(this.user.id, rawBookshelf)
+      .subscribe(
+        (response: Response) => {
+          this._bookshelves.push(newItem);
+          this.selectedBookshelf = null;
+          this.checkForChanges();
+        }
+      );
   }
 
   onDeleteItem(bookshelf: Bookshelf) {
@@ -60,7 +71,6 @@ export class BookshelvesComponent implements OnInit {
     this._bookshelves.splice(index, 1);
     this.selectedBookshelf = null;
     this.switchMode(false, false);
-    // TODO: check for changes
     this.checkForChanges();
   }
 

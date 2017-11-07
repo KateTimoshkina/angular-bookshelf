@@ -3,6 +3,7 @@ import { Reader } from '../../shared/models/reader.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
 import { Bookshelf } from '../../shared/models/bookshelf.model';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-reader',
@@ -18,34 +19,30 @@ export class ReaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isEditable = false;
-    const authUser = this.authService.getUser();
-    const userUid = authUser.uid;
-    const rawReader = {
-      id: userUid,
-      fullName: authUser.displayName,
-      login: authUser.email,
-      imageUrl: authUser.photoURL,
-      bookshelves: []
-    };
-    this.dsService.loadUserBookshelves(userUid)
+    const me = this;
+    me.isEditable = false;
+    const authUser = me.authService.getUser();
+    this.dsService.loadUserBookshelves(authUser.id)
       .subscribe(
-        (response) => {
-          rawReader.bookshelves = response.json();
-          this.reader = new Reader(rawReader);
+        (response: Response) => {
+          const rawData = response.json();
+          authUser['bookshelves'] = rawData.payload;
+          me.reader = new Reader(authUser);
+          console.log(me.reader);
         },
-        (error) => {
-          console.error(error);
+        (error: any) => {
+          console.log(error);
         }
       );
   }
 
   saveUserBookshelves(bookshelves: Bookshelf[]): void {
     const userId = this.reader.id;
-    this.dsService.storeUserBookshelves(userId, bookshelves)
-      .subscribe(
-        () => console.log('bookshelves updated successfully')
-      );
+    // TODO: save bookshelves
+    // this.dsService.storeUserBookshelves(userId, bookshelves)
+    //   .subscribe(
+    //     () => console.log('bookshelves saved successfully')
+    //   );
   }
 
   onEdit() {
@@ -54,19 +51,21 @@ export class ReaderComponent implements OnInit {
 
   onSave(reader: Reader) {
     this.reader = reader;
-    const profile = {
-      displayName: this.reader.fullName,
-      photoURL: this.reader.imageUrl
+    const profileData = {
+      username: this.reader.username,
+      first_name: this.reader.first_name,
+      last_name: this.reader.last_name,
+      email: this.reader.email
     };
-    this.authService.updatedUserProfile(profile)
-      .then(
-        () => {
+    this.authService.updateUserProfileInfo(profileData)
+      .subscribe(
+        (response: Response) => {
+          console.log(response);
           this.onCancel();
-        })
-      .catch(
-        (error) => console.error(error)
-      )
-    ;
+        },
+        (error: any) => {
+          console.error(error);
+        });
   }
 
   onCancel() {

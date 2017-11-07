@@ -1,19 +1,15 @@
 import { Author } from '../shared/models/author.model';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 export class AuthorsService {
   authorsChanged = new Subject<Author[]>();
   authors: Author[] = [];
+  author: Author = null;
 
   setAuthors(authors: Author[]): void {
     this.authors = authors;
     this.authorsChanged.next(this.getAuthors());
-  }
-
-  getAuthor(id: string): Author {
-    return this.authors.find(
-      (author: Author) => author.id === id
-    );
   }
 
   getAuthors(): Author[] {

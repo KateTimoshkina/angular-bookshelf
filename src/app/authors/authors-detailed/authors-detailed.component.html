@@ -1,8 +1,14 @@
-<h2>{{ author.firstName }} {{ author.lastName }}</h2>
-<div *ngIf="author.books">
-  Books:
-  <br>
-  <app-books-item  *ngFor="let book of author.books"></app-books-item>
+<div *ngIf="locked; else authorCard">
+  Loading...
 </div>
-<p><a routerLink="../"><-- Back</a></p>
-
+<ng-template #authorCard>
+  <h2>{{ author.firstName }} {{ author.lastName }}</h2>
+  <div *ngIf="author.books">
+    <h3>Year of birth: {{ author.yearOfBirth }}</h3>
+    <p>Short bio: {{ author.bio }}</p>
+    Books:
+    <br>
+    <app-books-item *ngFor="let book of author.books" [book]="book"></app-books-item>
+  </div>
+  <p><a routerLink="../"><-- Authors</a></p>
+</ng-template>

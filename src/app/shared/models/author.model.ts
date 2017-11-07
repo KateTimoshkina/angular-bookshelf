@@ -11,11 +11,11 @@ export class Author implements Base {
 
   constructor(input) {
     this.id = input['id'];
-    this.firstName = input['firstName'] || null;
-    this.lastName = input['lastName'] || null;
-    this.yearOfBirth = input['yearOfBirth'] || null;
+    this.firstName = input['first_name'] || null;
+    this.lastName = input['last_name'] || null;
+    this.yearOfBirth = input['year_of_birth'] || null;
     this.bio = input['bio'] || null;
-    this.books = input['books'] || null;
+    this.books = input['books'] || [];
   }
 
   public clone(): Author {
@@ -68,8 +68,8 @@ export class Author implements Base {
 
   public set books(value: Book[]) {
     this._books = [];
-    if (value) {
-      for (const item in value) {
+    if (value.length > 0) {
+      for (const item of value) {
         this._books.push(item ? new Book(item) : null);
       }
     }

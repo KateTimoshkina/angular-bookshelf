@@ -1,11 +1,11 @@
 <md-card>
-  <div *ngIf="reader.imageUrl"
+  <div *ngIf="reader.image"
        style="width: 100px; margin: 20px auto 0">
-    <img md-card-image src="{{ reader.imageUrl }}">
+    <img md-card-image src="{{ reader.image }}">
   </div>
   <md-card-content>
-    <p *ngIf="!!reader.fullName">{{ reader.fullName }}</p>
-    <p *ngIf="!!reader.login">{{ reader.login }}</p>
+    <p *ngIf="!!reader.first_name || !!reader.last_name">{{ reader.first_name }} {{ reader.last_name }}</p>
+    <p *ngIf="!!reader.username">{{ reader.username }}</p>
   </md-card-content>
   <md-card-actions>
     <button md-button

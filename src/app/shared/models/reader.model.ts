@@ -1,61 +1,23 @@
 import { Bookshelf } from './bookshelf.model';
 import { Base } from '../interfaces/base.interface';
+import { User } from './user.model';
 
-export class Reader implements Base {
-  private _id: string;
-  private _fullName: string;
-  private _login: string;
-  private _imageUrl: string;
+export class Reader extends User {
   private _bookshelves: Bookshelf[];
 
-  constructor(input: any) {
+  constructor(input?: any) {
+    super(input);
 
     if (!input) {
       return;
     }
 
-    this.id = input['id'];
-    this.fullName = input['fullName'] || null;
-    this.login = input['login'] || null;
-    this.imageUrl = input['imageUrl'] || null;
-    this.bookshelves = input['bookshelves'] || null;
+    this.bookshelves = input['bookshelves'] || [];
 
   }
 
   public clone(): Reader {
     return new Reader(this);
-  }
-
-  public get id(): string {
-    return this._id;
-  }
-
-  public set id(value: string) {
-    this._id = value;
-  }
-
-  public get fullName(): string {
-    return this._fullName;
-  }
-
-  public set fullName(value: string) {
-    this._fullName = value;
-  }
-
-  public get login(): string {
-    return this._login;
-  }
-
-  public set login(value: string) {
-    this._login = value;
-  }
-
-  public get imageUrl(): string {
-    return this._imageUrl;
-  }
-
-  public set imageUrl(value: string) {
-    this._imageUrl = value;
   }
 
   public get bookshelves(): Bookshelf[] {

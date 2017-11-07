@@ -20,11 +20,20 @@ export class DataStorageService {
               private authorsService: AuthorsService) {
   }
 
+  getAuthor(id): Observable<Response> {
+    return this.apiService.get(API_URL_PATH.authors + id + '/');
+  }
+
+  getBook(id): Observable<Response> {
+    return this.apiService.get(API_URL_PATH.books + id + '/');
+  }
+
   loadAuthors(): void {
     this.apiService.get(API_URL_PATH.authors)
       .subscribe(
         (response: Response) => {
-          const rawAuthors: Array<any> = response.json();
+          const data = response.json();
+          const rawAuthors: Array<any> = data.payload;
           this.authorsService.setAuthors(
             rawAuthors.map((item: any) => new Author(item))
           );
@@ -33,10 +42,10 @@ export class DataStorageService {
       );
   }
 
+  // TODO: change to storing only one author
   storeAuthors(): Observable<Response> {
-    if (this.authService.role === USER_ROLES.PUBLISHER) {
-      const token = this.authService.getToken();
-      return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors(), token);
+    if (this.authService.roles.indexOf(USER_ROLES.PUBLISHER)) {
+      return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors());
     }
   }
 
@@ -44,7 +53,8 @@ export class DataStorageService {
     this.apiService.get(API_URL_PATH.books)
       .subscribe(
         (response: Response) => {
-          const rawBooks: Array<any> = response.json();
+          const data = response.json();
+          const rawBooks: Array<any> = data.payload;
           this.booksService.setBooks(
             rawBooks.map((item: any) => new Book(item))
           );
@@ -53,41 +63,26 @@ export class DataStorageService {
       );
   }
 
+  // TODO: change to storing only one book
   storeBooks(): Observable<Response> {
-    if (this.authService.role === USER_ROLES.PUBLISHER) {
-      const token = this.authService.getToken();
-      return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks(), token);
+    if (this.authService.user.groups.indexOf(USER_ROLES.PUBLISHER) > -1) {
+      return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks());
     }
   }
 
   loadUserBookshelves(userId: string): Observable<Response> {
-    if (this.authService.role === USER_ROLES.READER) {
-      const token = this.authService.token;
-      const endPoint = API_URL_PATH.bookshelves + '/' + userId;
-      return this.apiService.get(endPoint, token);
+    if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
+      const endPoint = API_URL_PATH.users + userId + '/' + API_URL_PATH.bookshelves;
+      return this.apiService.get(endPoint);
     }
   }
 
-  storeUserBookshelves(userId: string, bookshelves: Bookshelf[]): Observable<Response> {
-    if (this.authService.role === USER_ROLES.READER) {
-      const token = this.authService.token;
-      const endPoint = API_URL_PATH.bookshelves + '/' + userId;
-      return this.apiService.put(endPoint, bookshelves, token);
+  // TODO: change to storing only one bookshelf
+  createUserBookshelf(userId: string, bookshelf: any): Observable<Response> {
+    if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
+      const endPoint = API_URL_PATH.users + userId + '/' + API_URL_PATH.bookshelves;
+      return this.apiService.post(endPoint, bookshelf);
     }
-  }
-
-  public generateUid(repeatNumber: number): string {
-    let result = '';
-    for (let i = 0; i < repeatNumber; i++) {
-      result += this.generatePartial();
-    }
-    return result;
-  }
-
-  private generatePartial(): string {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(36)
-      .substring(1);
   }
 
 }

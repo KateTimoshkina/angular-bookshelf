@@ -5,7 +5,7 @@ export const BOOK_STATUS = [
 ];
 
 export const USER_ROLES = {
-  READER: 'reader',
-  PUBLISHER: 'publisher',
-  MODERATOR: 'moderator'
-}
+  MODERATOR:  1,
+  PUBLISHER:  2,
+  READER:     3
+};

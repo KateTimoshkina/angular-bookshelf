@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../shared/models/book.model';
 import { ActivatedRoute } from '@angular/router';
-import { BooksService } from '../books.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
+import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-books-detailed',
@@ -9,16 +10,28 @@ import { BooksService } from '../books.service';
   styleUrls: ['./books-detailed.component.css']
 })
 export class BooksDetailedComponent implements OnInit {
+  locked: boolean;
   book: Book;
 
   constructor(private route: ActivatedRoute,
-              private booksService: BooksService) {
+              private dsService: DataStorageService) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(
+    const me = this;
+    me.locked = true;
+    me.route.params.subscribe(
       (params) => {
-        this.book = this.booksService.getBook(params['bookId']);
+        me.dsService.getBook(params['bookId'])
+          .subscribe(
+            (response: Response) => {
+              const data = response.json();
+              const rawBook = data.payload;
+              me.book = new Book(rawBook);
+              console.log(me.book);
+              me.locked = false;
+            }
+          );
       }
     );
   }
