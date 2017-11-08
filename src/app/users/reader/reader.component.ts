@@ -21,30 +21,14 @@ export class ReaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    const me = this;
-    me.isEditable = false;
-    const authUser = me.authService.getUser();
-    this.dsService.loadUserBookshelves(authUser.id)
+    this.isEditable = false;
+    this.usersService.buildReader()
       .subscribe(
-        (response: Response) => {
-          const rawData = response.json();
-          authUser['bookshelves'] = rawData.payload;
-          me.reader = new Reader(authUser);
-          console.log(me.reader);
+        (reader: Reader) => {
+          this.reader = reader;
         },
-        (error: any) => {
-          console.log(error);
-        }
+        error => console.log(error)
       );
-  }
-
-  saveUserBookshelves(bookshelves: Bookshelf[]): void {
-    const userId = this.reader.id;
-    // TODO: save bookshelves
-    // this.dsService.storeUserBookshelves(userId, bookshelves)
-    //   .subscribe(
-    //     () => console.log('bookshelves saved successfully')
-    //   );
   }
 
   onEdit() {

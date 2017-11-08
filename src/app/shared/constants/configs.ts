@@ -8,5 +8,5 @@ export const config = {
     messagingSenderId: "192819524683"
   },
 
-  BOOKSHELF_DEFAULT_TITLE: '(new bookshelf)'
+  BOOKSHELF_DEFAULT_TITLE: 'new bookshelf'
 };

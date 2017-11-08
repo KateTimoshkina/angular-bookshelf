@@ -51,14 +51,16 @@ export class BookshelvesComponent implements OnInit {
 
   onAddItem() {
     // TODO: update default title to prevent duplicates
-    const rawBookshelf = {
-      title: config.BOOKSHELF_DEFAULT_TITLE
+    let indexParticle = this._bookshelves.length > 0 ? ' ' + this._bookshelves.length : '';
+    let newTitle = '(' + config.BOOKSHELF_DEFAULT_TITLE + indexParticle + ')';
+    let rawBookshelf = {
+      title: newTitle
     };
-    const newItem = new Bookshelf(rawBookshelf);
+    let newBookshelf = new Bookshelf(rawBookshelf);
     this.dsService.createUserBookshelf(this.user.id, rawBookshelf)
       .subscribe(
         (response: Response) => {
-          this._bookshelves.push(newItem);
+          this._bookshelves.push(newBookshelf);
           this.selectedBookshelf = null;
           this.checkForChanges();
         }
