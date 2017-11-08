@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Request, RequestMethod } from '@angular/http';
-import { Dictionary } from '../interfaces/dictionary.interface';
+import { Dictionary } from '../types';
 
 @Injectable()
-export class RequestBuilder{
+export class RequestBuilder {
   baseUrl: string = null;
   method: RequestMethod;
   path: string = '/';
