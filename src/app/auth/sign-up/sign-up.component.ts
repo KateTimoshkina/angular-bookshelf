@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-
+  errorText: string;
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -18,9 +18,16 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp(form: NgForm) {
-    const email = form.value['email'];
-    const password = form.value['password'];
-    this.authService.signUp(email, password);
+    let email = form.value['email'];
+    let password = form.value['password'];
+
+    this.authService.signUp(email, password)
+      .subscribe(
+        () => {
+          this.router.navigate(['/profile']);
+        },
+        error => this.errorText = error.error_message
+      );
   }
 
 }

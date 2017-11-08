@@ -18,6 +18,7 @@
                type="password">
       </md-input-container>
     </form>
+    <p *ngIf="errorText" style="color: red">{{ errorText }}</p>
   </md-card-content>
   <md-card-actions>
     <button md-button

@@ -1,89 +1,91 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { API_URL_PATH } from '../shared/constants/url-constants';
+import { API_SERVER, API_URL_PATH } from '../shared/constants/url-constants';
 import { ApiService } from '../shared/services/api.service';
 import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../shared/models/user.model';
+import { RequestBuilder } from '../shared/services/request-builder';
 
 @Injectable()
 export class AuthService {
   user: User;
   roles: Array<number>;
 
-  constructor(private router: Router,
-              private apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
-  singIn(username: string, password: string): void {
-    const endPoint = API_URL_PATH.auth.logIn;
-    const body = {
+  signIn(username: string, password: string): Observable<void> {
+    let body = {
       username: username,
       password: password
     };
-    // TODO: move to separate service
-    this.apiService.post(endPoint, body)
-      .subscribe(
-        (response: Response) => {
-          if (response.status === 200) {
-            const rawData = response.json();
-            this.setUser(rawData.payload);
-            this.router.navigate(['/profile']);
-          } else if (response.status === 400) {
-            console.log(response);
-          }
-        },
-        (error: any) => {
-          console.log(error);
+
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('post')
+      .withPath('auth/login/')
+      .withBody(body);
+
+    return this.apiService.performRequest(request)
+      .map(
+        response => {
+          this.user = new User(response.payload);
         }
-      );
+      )
+      .catch(error => Observable.throw(error))
+      .share();
   }
 
-  signUp(username: string, password: string): void {
-    const endPoint = API_URL_PATH.auth.logIn;
-    const body = {
+
+  signUp(username: string, password: string): Observable<void> {
+    let body = {
       username: username,
       password: password
     };
-    // TODO: move to separate service
-    this.apiService.post(endPoint, body)
-      .subscribe(
-        (response: Response) => {
-          if (response.status === 200) {
-            const rawData = response.json();
-            this.setUser(rawData.payload);
-            // TODO: set user role as READER
-            this.router.navigate(['/profile']);
-          } else if (response.status === 400) {
-            console.log(response);
-          }
-          this.router.navigate(['/']);
-        },
-        (error: any) => {
-          console.log(error);
+
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('post')
+      .withPath('auth/sign_up/')
+      .withBody(body);
+
+    return this.apiService.performRequest(request)
+      .map(
+        response => {
+          this.user = new User(response.payload);
         }
-      );
+      )
+      .catch(error => Observable.throw(error))
+      .share();
   }
 
-  logout(): void {
-    const endPoint = API_URL_PATH.auth.logOut;
-    this.apiService.get(endPoint);
-    this.user = null;
+  logout(): Observable<void> {
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('get')
+      .withPath('auth/logout/');
+
+    return this.apiService.performRequest(request)
+      .map(
+        () => {
+          this.user = null;
+        }
+      )
+      .catch(error => Observable.throw(error))
+      .share();
   }
 
   getUser(): User {
     return this.user;
   }
 
-  setUser(rawUser: any): void {
-    this.user = new User(rawUser);
+  isAuthenticated(): boolean {
+    return !!this.user;
   }
 
-  // TODO: move to data storage
+  // TODO: move to user component
   updateUserProfileInfo(profileData: any): Observable<Response> {
     const endPoint = API_URL_PATH.users + this.user.id + '/';
     return this.apiService.patch(endPoint, profileData);
   }
 
+  // TODO: move to user component
   updateUserProfileImage(image: any): Observable<Response> {
     const endPoint = API_URL_PATH.users + this.user.id + '/' + API_URL_PATH.userImage;
     const headers = new Headers();
@@ -93,10 +95,6 @@ export class AuthService {
       headers: headers
     });
     return this.apiService.post(endPoint, image, options);
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.user;
   }
 
 }
