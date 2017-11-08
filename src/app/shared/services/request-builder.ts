@@ -1,24 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Request } from '@angular/http';
+import { Request, RequestMethod } from '@angular/http';
 import { Dictionary } from '../interfaces/dictionary.interface';
 
 @Injectable()
-export class RequestBuilder {
-  private baseUrl: string = null;
-  private method: string;
-  private path: string = '/';
-  private pathParams: Dictionary<string> = {};
-  private queryParams: Dictionary<string> = {};
-  private body: string = '';
-  private extraHeaders: Dictionary<string> = {};
+export class RequestBuilder{
+  baseUrl: string = null;
+  method: RequestMethod;
+  path: string = '/';
+  pathParams: Dictionary<string> = {};
+  queryParams: Dictionary<string> = {};
+  body: string = '';
+  extraHeaders: Dictionary<string> = {};
 
-  public constructor(baseUrl: string, method: string) {
+  public constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
-    this.method = method;
   }
 
   public withPath(path: string) {
     this.path = path;
+    return this;
+  }
+
+  public withMethod(method: string): RequestBuilder {
+    if (method === 'post') {
+      this.method = RequestMethod.Post;
+    } else if (method === 'get') {
+      this.method = RequestMethod.Get;
+    } else if (method === 'patch') {
+      this.method = RequestMethod.Patch;
+    }
     return this;
   }
 
@@ -32,7 +42,7 @@ export class RequestBuilder {
     return this;
   }
 
-  public withJsonBody(body: Dictionary<any>) {
+  public withBody(body: Dictionary<any>) {
     this.body = JSON.stringify(body);
     return this;
   }
