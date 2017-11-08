@@ -4,6 +4,7 @@ import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
 import { Bookshelf } from '../../shared/models/bookshelf.model';
 import { Response } from '@angular/http';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-reader',
@@ -15,6 +16,7 @@ export class ReaderComponent implements OnInit {
   isEditable: boolean;
 
   constructor(private authService: AuthService,
+              private usersService: UsersService,
               private dsService: DataStorageService) {
   }
 
@@ -57,15 +59,12 @@ export class ReaderComponent implements OnInit {
       last_name: this.reader.last_name,
       email: this.reader.email
     };
-    this.authService.updateUserProfileInfo(profileData)
+    // TODO: add image uploader
+    this.usersService.updateUserProfileInfo(profileData)
       .subscribe(
-        (response: Response) => {
-          console.log(response);
-          this.onCancel();
-        },
-        (error: any) => {
-          console.error(error);
-        });
+          () => this.onCancel(),
+          error => console.error(error)
+        );
   }
 
   onCancel() {

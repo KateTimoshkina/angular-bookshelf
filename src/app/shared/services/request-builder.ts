@@ -32,6 +32,11 @@ export class RequestBuilder {
     return this;
   }
 
+  public withExtraHeaders(extraHeaders: Dictionary<string>) {
+    this.extraHeaders = extraHeaders;
+    return this;
+  }
+
   public withPathParams(pathParams: Dictionary<string>) {
     this.pathParams = pathParams;
     return this;

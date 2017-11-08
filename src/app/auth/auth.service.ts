@@ -34,7 +34,6 @@ export class AuthService {
       .share();
   }
 
-
   signUp(username: string, password: string): Observable<void> {
     let body = {
       username: username,
@@ -75,26 +74,16 @@ export class AuthService {
     return this.user;
   }
 
+  setUser(user: User): void {
+    this.user = user;
+  }
+
+  getUserId(): string {
+    return this.user.id;
+  }
+
   isAuthenticated(): boolean {
     return !!this.user;
-  }
-
-  // TODO: move to user component
-  updateUserProfileInfo(profileData: any): Observable<Response> {
-    const endPoint = API_URL_PATH.users + this.user.id + '/';
-    return this.apiService.patch(endPoint, profileData);
-  }
-
-  // TODO: move to user component
-  updateUserProfileImage(image: any): Observable<Response> {
-    const endPoint = API_URL_PATH.users + this.user.id + '/' + API_URL_PATH.userImage;
-    const headers = new Headers();
-    headers.set('Content-Type', 'application/octet-stream');
-    headers.set('Upload-Content-Type', image.type);
-    const options = new RequestOptions({
-      headers: headers
-    });
-    return this.apiService.post(endPoint, image, options);
   }
 
 }

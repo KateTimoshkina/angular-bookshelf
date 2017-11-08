@@ -9,6 +9,7 @@ import { PublisherComponent } from './publisher/publisher.component';
 import { FormsModule } from '@angular/forms';
 import { ReaderEditComponent } from './reader/reader-edit/reader-edit.component';
 import { ReaderDetailComponent } from './reader/reader-detail/reader-detail.component';
+import { UsersService } from './users.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,9 @@ import { ReaderDetailComponent } from './reader/reader-detail/reader-detail.comp
     PublisherComponent,
     ReaderEditComponent,
     ReaderDetailComponent
+  ],
+  providers: [
+    UsersService
   ]
 })
 export class UsersModule { }
