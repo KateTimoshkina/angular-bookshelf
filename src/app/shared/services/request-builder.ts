@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Request, RequestMethod } from '@angular/http';
+import { HttpParams, HttpRequest } from '@angular/common/http';
 import { Dictionary } from '../types';
 
 @Injectable()
 export class RequestBuilder {
   baseUrl: string = null;
-  method: RequestMethod;
+  method: string;
   path: string = '/';
   pathParams: Dictionary<string> = {};
   queryParams: Dictionary<string> = {};
@@ -22,13 +22,7 @@ export class RequestBuilder {
   }
 
   public withMethod(method: string): RequestBuilder {
-    if (method === 'post') {
-      this.method = RequestMethod.Post;
-    } else if (method === 'get') {
-      this.method = RequestMethod.Get;
-    } else if (method === 'patch') {
-      this.method = RequestMethod.Patch;
-    }
+    this.method = method;
     return this;
   }
 
@@ -52,8 +46,8 @@ export class RequestBuilder {
     return this;
   }
 
-  public build(): Request {
-    const queryParameters = new URLSearchParams();
+  public build(): HttpRequest<any> {
+    const queryParameters = new HttpParams();
 
     for (const key in this.queryParams) {
       if (this.queryParams.hasOwnProperty(key)) {
@@ -61,14 +55,11 @@ export class RequestBuilder {
       }
     }
 
-    const request = new Request({
-      url: this.baseUrl + this.buildPath(),
-      method: this.method,
-      body: this.body,
-      search: queryParameters,
+    const url = this.baseUrl + this.buildPath();
+    const request = new HttpRequest(this.method, url, this.body, {
+      params: queryParameters,
       withCredentials: true
     });
-
 
     request.headers.set('Content-Type', 'application/json');
 

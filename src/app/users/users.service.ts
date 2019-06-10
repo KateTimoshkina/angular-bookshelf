@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ApiService } from '../shared/services/api.service';
 import { RequestBuilder } from '../shared/services/request-builder';
 import { AuthService } from '../auth/auth.service';
@@ -30,10 +30,10 @@ export class UsersService {
       .withPathParams(pathParams)
       .withBody(profileData);
 
-    return this.apiService.performRequest(request)
+    return this.apiService.performRequest<User>(request)
       .map(
-        response => {
-          let user = new User(response.payload);
+        (response: User) => {
+          let user = new User(response);
           this.authService.setUser(user);
         }
       )
@@ -59,10 +59,10 @@ export class UsersService {
       .withPathParams(pathParams)
       .withExtraHeaders(extraHeaders);
 
-    return this.apiService.performRequest(request)
+    return this.apiService.performRequest<User>(request)
       .map(
-        response => {
-          let user = new User(response.payload);
+        (response: User) => {
+          let user = new User(response);
           this.authService.setUser(user);
         }
       )
@@ -97,10 +97,10 @@ export class UsersService {
       .withPath('users/:id/bookshelves/')
       .withPathParams(pathParams);
 
-    return this.apiService.performRequest(request)
+    return this.apiService.performRequest<Array<Bookshelf>>(request)
       .map(
-        response => {
-          return response.payload;
+        (response: Array<Bookshelf>) => {
+          return response;
         }
       )
       .catch(

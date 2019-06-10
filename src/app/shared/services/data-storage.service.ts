@@ -3,13 +3,12 @@ import { ApiService } from './api.service';
 import { AuthService } from '../../auth/auth.service';
 import { BooksService } from '../../books/books.service';
 import { AuthorsService } from '../../authors/authors.service';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Author } from '../models/author.model';
 import { Book } from '../models/book.model';
-import { Bookshelf } from '../models/bookshelf.model';
-import { API_URL_PATH } from '../constants/url-constants';
+import { API_SERVER } from '../constants/url-constants';
 import { USER_ROLES } from '../constants/constants';
+import { RequestBuilder } from './request-builder';
 
 @Injectable()
 export class DataStorageService {
@@ -20,22 +19,28 @@ export class DataStorageService {
               private authorsService: AuthorsService) {
   }
 
-  getAuthor(id): Observable<Response> {
-    return this.apiService.get(API_URL_PATH.authors + id + '/');
-  }
+  getAuthor(authorId: string): Observable<Author> {
+    let pathParams = {
+      id: authorId
+    };
 
-  getBook(id): Observable<Response> {
-    return this.apiService.get(API_URL_PATH.books + id + '/');
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('get')
+      .withPath('authors/:id/')
+      .withPathParams(pathParams);
+
+    return this.apiService.performRequest<Author>(request);
   }
 
   loadAuthors(): void {
-    this.apiService.get(API_URL_PATH.authors)
-      .subscribe(
-        (response: Response) => {
-          const data = response.json();
-          const rawAuthors: Array<any> = data.payload;
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('get')
+      .withPath('authors/');
+
+    this.apiService.performRequest<Array<Author>>(request)
+      .subscribe((response: Array<Author>) => {
           this.authorsService.setAuthors(
-            rawAuthors.map((item: any) => new Author(item))
+            response.map((item: any) => new Author(item))
           );
         },
         (error) => console.log(error)
@@ -43,20 +48,34 @@ export class DataStorageService {
   }
 
   // TODO: change to storing only one author
-  storeAuthors(): Observable<Response> {
+  storeAuthors(): any {
     if (this.authService.roles.indexOf(USER_ROLES.PUBLISHER)) {
-      return this.apiService.put(API_URL_PATH.authors, this.authorsService.getAuthors());
+      // TODO: implement PUT 'authors/'
     }
   }
 
+  getBook(bookId): Observable<Book> {
+    let pathParams = {
+      id: bookId
+    };
+
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('get')
+      .withPath('books/:id/')
+      .withPathParams(pathParams);
+
+    return this.apiService.performRequest<Book>(request);
+  }
+
   loadBooks(): void {
-    this.apiService.get(API_URL_PATH.books)
-      .subscribe(
-        (response: Response) => {
-          const data = response.json();
-          const rawBooks: Array<any> = data.payload;
+    let request = new RequestBuilder(API_SERVER)
+      .withMethod('get')
+      .withPath('books/');
+
+    this.apiService.performRequest<Array<Book>>(request)
+      .subscribe((response: Array<Book>) => {
           this.booksService.setBooks(
-            rawBooks.map((item: any) => new Book(item))
+            response.map((item: any) => new Book(item))
           );
         },
         (error) => console.log(error)
@@ -64,24 +83,22 @@ export class DataStorageService {
   }
 
   // TODO: change to storing only one book
-  storeBooks(): Observable<Response> {
+  storeBooks(): any {
     if (this.authService.user.groups.indexOf(USER_ROLES.PUBLISHER) > -1) {
-      return this.apiService.put(API_URL_PATH.books, this.booksService.getBooks());
+      // TODO: implement PUT 'books/'
     }
   }
 
-  loadUserBookshelves(userId: string): Observable<Response> {
+  loadUserBookshelves(userId: string): any {
     if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
-      const endPoint = API_URL_PATH.users + userId + '/' + API_URL_PATH.bookshelves;
-      return this.apiService.get(endPoint);
+      // TODO: implement 'users/:id/bookshelves'
     }
   }
 
   // TODO: change to storing only one bookshelf
-  createUserBookshelf(userId: string, bookshelf: any): Observable<Response> {
+  createUserBookshelf(userId: string, bookshelf: any): any {
     if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
-      const endPoint = API_URL_PATH.users + userId + '/' + API_URL_PATH.bookshelves;
-      return this.apiService.post(endPoint, bookshelf);
+      // TODO: implement POST 'users/:id/bookshelves'
     }
   }
 

@@ -4,7 +4,7 @@ import { DataStorageService } from '../../services/data-storage.service';
 import { config } from '../../constants/configs';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../models/user.model';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-bookshelves',
@@ -58,8 +58,7 @@ export class BookshelvesComponent implements OnInit {
     };
     let newBookshelf = new Bookshelf(rawBookshelf);
     this.dsService.createUserBookshelf(this.user.id, rawBookshelf)
-      .subscribe(
-        (response: Response) => {
+      .subscribe((response: HttpResponse<Bookshelf>) => {
           this._bookshelves.push(newBookshelf);
           this.selectedBookshelf = null;
           this.checkForChanges();

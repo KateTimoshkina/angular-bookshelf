@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Book } from '../../shared/models/book.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataStorageService } from '../../shared/services/data-storage.service';
-import { Response } from '@angular/http';
 
 @Component({
   selector: 'app-books-detailed',
@@ -24,10 +23,8 @@ export class BooksDetailedComponent implements OnInit {
       (params) => {
         me.dsService.getBook(params['bookId'])
           .subscribe(
-            (response: Response) => {
-              const data = response.json();
-              const rawBook = data.payload;
-              me.book = new Book(rawBook);
+            (response: Book) => {
+              me.book = new Book(response);
               console.log(me.book);
               me.locked = false;
             }

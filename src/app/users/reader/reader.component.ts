@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Reader } from '../../shared/models/reader.model';
 import { AuthService } from '../../auth/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
-import { Bookshelf } from '../../shared/models/bookshelf.model';
-import { Response } from '@angular/http';
 import { UsersService } from '../users.service';
 
 @Component({

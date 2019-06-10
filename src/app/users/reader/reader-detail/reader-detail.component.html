@@ -1,19 +1,19 @@
-<md-card>
+<mat-card>
   <div *ngIf="reader.image"
        style="width: 100px; margin: 20px auto 0">
-    <img md-card-image src="{{ reader.image }}">
+    <img mat-card-image src="{{ reader.image }}">
   </div>
-  <md-card-content>
+  <mat-card-content>
     <p *ngIf="!!reader.first_name || !!reader.last_name">{{ reader.first_name }} {{ reader.last_name }}</p>
     <p *ngIf="!!reader.username">{{ reader.username }}</p>
-  </md-card-content>
-  <md-card-actions>
-    <button md-button
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button
             (click)="onEdit()"
             color="primary"
             class="mat-raised-button">
-      <md-icon>mode_edit</md-icon>
+      <mat-icon>mode_edit</mat-icon>
       Edit
     </button>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>

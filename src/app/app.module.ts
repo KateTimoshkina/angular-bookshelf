@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -9,7 +8,7 @@ import { CoreModule } from './core/core.module';
 import { BooksModule } from './books/books.module';
 import { AuthorsModule } from './authors/authors.module';
 import { UsersModule } from './users/users.module';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import { HttpModule } from '@angular/http';
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     CoreModule,
-    HttpModule,
+    HttpClientModule,
     BooksModule,
     AuthorsModule,
     UsersModule

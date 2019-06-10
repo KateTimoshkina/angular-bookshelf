@@ -1,13 +1,13 @@
 <h2 class="mat-headline">User bookshelves</h2>
-<a md-button
+<a mat-button
    (click)="onAddItem()"
    class="mat-raised-button"
     color="primary">Add new</a>
-<a md-button
+<a mat-button
    *ngIf="hasChanges"
    (click)="onSaveItems()"
    class="mat-raised-button">
-  <md-icon>done</md-icon>
+  <mat-icon>done</mat-icon>
   Save changes</a>
 <br><br>
 

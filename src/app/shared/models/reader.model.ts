@@ -2,7 +2,7 @@ import { Bookshelf } from './bookshelf.model';
 import { Base } from '../interfaces/base.interface';
 import { User } from './user.model';
 
-export class Reader extends User {
+export class Reader extends User implements Base {
   private _bookshelves: Bookshelf[];
 
   constructor(input?: any) {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { API_SERVER, API_URL_PATH } from '../shared/constants/url-constants';
+import { API_SERVER } from '../shared/constants/url-constants';
 import { ApiService } from '../shared/services/api.service';
-import { Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../shared/models/user.model';
 import { RequestBuilder } from '../shared/services/request-builder';
@@ -24,10 +23,10 @@ export class AuthService {
       .withPath('auth/login/')
       .withBody(body);
 
-    return this.apiService.performRequest(request)
+    return this.apiService.performRequest<User>(request)
       .map(
-        response => {
-          this.user = new User(response.payload);
+        (response: User) => {
+          this.user = new User(response);
         }
       )
       .catch(error => Observable.throw(error))
@@ -45,10 +44,10 @@ export class AuthService {
       .withPath('auth/sign_up/')
       .withBody(body);
 
-    return this.apiService.performRequest(request)
+    return this.apiService.performRequest<User>(request)
       .map(
-        response => {
-          this.user = new User(response.payload);
+        (response: User) => {
+          this.user = new User(response);
         }
       )
       .catch(error => Observable.throw(error))
