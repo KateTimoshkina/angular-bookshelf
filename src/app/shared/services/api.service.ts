@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpParamsOptions, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { RequestBuilder } from './request-builder';
 
 @Injectable()
 export class ApiService {
-  private defaultOptions: HttpParams;
 
   constructor(private http: HttpClient) {
-    this.defaultOptions = new HttpParams({
-      withCredentials: true
-    });
   }
 
   public performRequest<T>(requestBuild: RequestBuilder): Observable<T> {
