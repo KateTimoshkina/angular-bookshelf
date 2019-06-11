@@ -1,4 +1,5 @@
 <h2 class="mat-headline">User bookshelves</h2>
+
 <a mat-button
    (click)="onAddItem()"
    class="mat-raised-button"
@@ -22,6 +23,7 @@
                           [bookshelf]="selectedBookshelf"
                           (editItem)="onEditItem($event)"
                           (deleteItem)="onDeleteItem($event)"></app-bookshelves-detailed>
+
 <app-bookshelves-edit *ngIf="isEditable"
                       [bookshelf]="selectedBookshelf"
                       (saveItem)="onSaveItem()"

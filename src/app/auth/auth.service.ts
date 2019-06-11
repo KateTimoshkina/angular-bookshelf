@@ -7,7 +7,7 @@ import { RequestBuilder } from '../shared/services/request-builder';
 
 @Injectable()
 export class AuthService {
-  user: User;
+  _user: User;
   roles: Array<number>;
 
   constructor(private apiService: ApiService) { }
@@ -26,7 +26,7 @@ export class AuthService {
     return this.apiService.performRequest<User>(request)
       .map(
         (response: User) => {
-          this.user = new User(response);
+          this._user = new User(response);
         }
       )
       .catch(error => Observable.throw(error.error.service))
@@ -41,27 +41,23 @@ export class AuthService {
     return this.apiService.performRequest(request)
       .map(
         () => {
-          this.user = null;
+          this._user = null;
         }
       )
       .catch(error => Observable.throw(error))
       .share();
   }
 
-  getUser(): User {
-    return this.user;
+  public get user(): User {
+    return this._user;
   }
 
-  setUser(user: User): void {
-    this.user = user;
-  }
-
-  getUserId(): string {
-    return this.user.id;
+  public set user(user: User) {
+    this._user = user;
   }
 
   isAuthenticated(): boolean {
-    return !!this.user;
+    return !!this._user;
   }
 
 }

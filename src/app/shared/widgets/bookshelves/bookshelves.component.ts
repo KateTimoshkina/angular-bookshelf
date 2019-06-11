@@ -5,6 +5,7 @@ import { config } from '../../constants/configs';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../models/user.model';
 import { HttpResponse } from '@angular/common/http';
+import { UsersService } from '../../../users/users.service';
 
 @Component({
   selector: 'app-bookshelves',
@@ -22,6 +23,7 @@ export class BookshelvesComponent implements OnInit {
   isEditable: boolean;
 
   constructor(private dsService: DataStorageService,
+              private usersService: UsersService,
               private authService: AuthService) { }
 
   private switchMode(isEditable: boolean, isDetailed: boolean) {
@@ -30,7 +32,7 @@ export class BookshelvesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.authService.getUser();
+    this.user = this.authService.user;
     this.selectedBookshelf = null;
     this.switchMode(false, false);
     // creating local bookshelves copy
@@ -57,13 +59,7 @@ export class BookshelvesComponent implements OnInit {
       title: newTitle
     };
     let newBookshelf = new Bookshelf(rawBookshelf);
-    this.dsService.createUserBookshelf(this.user.id, rawBookshelf)
-      .subscribe((response: HttpResponse<Bookshelf>) => {
-          this._bookshelves.push(newBookshelf);
-          this.selectedBookshelf = null;
-          this.checkForChanges();
-        }
-      );
+    this.usersService.createUserBookshelf(newBookshelf);
   }
 
   onDeleteItem(bookshelf: Bookshelf) {

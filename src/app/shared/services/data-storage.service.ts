@@ -89,17 +89,4 @@ export class DataStorageService {
     }
   }
 
-  loadUserBookshelves(userId: string): any {
-    if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
-      // TODO: implement 'users/:id/bookshelves'
-    }
-  }
-
-  // TODO: change to storing only one bookshelf
-  createUserBookshelf(userId: string, bookshelf: any): any {
-    if (this.authService.user.groups.indexOf(USER_ROLES.READER) > -1) {
-      // TODO: implement POST 'users/:id/bookshelves'
-    }
-  }
-
 }

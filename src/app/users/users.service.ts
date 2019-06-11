@@ -16,7 +16,7 @@ export class UsersService {
 
   constructor(private apiService: ApiService,
               private authService: AuthService) {
-    this.userId = this.authService.getUserId();
+    this.userId = this.authService.user.id;
   }
 
   updateUserProfileInfo(profileData: Dictionary<string>): Observable<void> {
@@ -33,37 +33,7 @@ export class UsersService {
     return this.apiService.performRequest<User>(request)
       .map(
         (response: User) => {
-          let user = new User(response);
-          this.authService.setUser(user);
-        }
-      )
-      .catch(
-        error => Observable.throw(error)
-      )
-      .share();
-  }
-
-  updateUserProfileImage(image: any): Observable<void> {
-    let pathParams = {
-      id: this.userId
-    };
-
-    let extraHeaders = {
-      'Content-Type': 'application/octet-stream',
-      'Upload-Content-Type': image.type
-    };
-
-    let request = new RequestBuilder(API_SERVER)
-      .withMethod('post')
-      .withPath('users/:id/image/')
-      .withPathParams(pathParams)
-      .withExtraHeaders(extraHeaders);
-
-    return this.apiService.performRequest<User>(request)
-      .map(
-        (response: User) => {
-          let user = new User(response);
-          this.authService.setUser(user);
+          this.authService.user = new User(response);
         }
       )
       .catch(
@@ -73,7 +43,7 @@ export class UsersService {
   }
 
   buildReader(): Observable<Reader> {
-    let reader = this.authService.getUser();
+    let reader = this.authService.user;
     return this.loadUserBookshelves()
       .map(
         (rawBookshelves) => {
@@ -109,11 +79,11 @@ export class UsersService {
       .share();
   }
 
-  createUserBookshelf(title: string) {
+  createUserBookshelf(bookshelf: Bookshelf) {
     // TODO: POST users/{user_id}/bookshelves/
   }
 
-  updateBookshelfInfo(bookshelf: Bookshelf[]) {
+  updateBookshelfInfo(bookshelf: Bookshelf) {
     // TODO: PUT bookshelves/{bookshelf_id}/
   }
 
