@@ -29,28 +29,7 @@ export class AuthService {
           this.user = new User(response);
         }
       )
-      .catch(error => Observable.throw(error))
-      .share();
-  }
-
-  signUp(username: string, password: string): Observable<void> {
-    let body = {
-      username: username,
-      password: password
-    };
-
-    let request = new RequestBuilder(API_SERVER)
-      .withMethod('post')
-      .withPath('auth/sign_up/')
-      .withBody(body);
-
-    return this.apiService.performRequest<User>(request)
-      .map(
-        (response: User) => {
-          this.user = new User(response);
-        }
-      )
-      .catch(error => Observable.throw(error))
+      .catch(error => Observable.throw(error.error.service))
       .share();
   }
 

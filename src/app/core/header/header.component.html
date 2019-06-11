@@ -1,12 +1,17 @@
 <mat-toolbar>
   <a routerLink="/" mat-button class="logo-icon"><span>Bookie</span></a>
-  <a routerLink="/books" routerLinkActive="mat-button-toggle-checked" mat-button>Books</a>
-  <a routerLink="/authors" routerLinkActive="mat-button-toggle-checked" mat-button>Authors</a>
+
+  <div *ngIf="authService.isAuthenticated()">
+    <a routerLink="/books" routerLinkActive="mat-button-toggle-checked" mat-button>Books</a>
+    <a routerLink="/authors" routerLinkActive="mat-button-toggle-checked" mat-button>Authors</a>
+  </div>
+
   <span style="flex: 1 1 auto;"></span>
+
   <a *ngIf="!authService.isAuthenticated()"
      routerLink="/sign-in"
-     class="mat-button-toggle-checked"
      mat-button>Sign In</a>
+
   <div *ngIf="authService.isAuthenticated()">
     <a routerLink="/profile"
        mat-button>profile</a>

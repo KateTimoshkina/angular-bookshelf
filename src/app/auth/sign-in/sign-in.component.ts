@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -19,15 +18,21 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(form: NgForm) {
-    let email = form.value['email'];
+    let username = form.value['username'];
     let password = form.value['password'];
 
-    this.authService.signIn(email, password)
+    this.authService.signIn(username, password)
       .subscribe(
         () => {
           this.router.navigate(['/profile']);
         },
-        error => this.errorText = error.error_message
+        error => {
+          if (!(error.validation_errors instanceof Array)) {
+            this.errorText = JSON.stringify(error.validation_errors);
+          } else {
+            this.errorText = error.error_message;
+          }
+        }
       );
   }
 

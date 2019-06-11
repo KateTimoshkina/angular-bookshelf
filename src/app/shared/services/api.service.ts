@@ -12,7 +12,16 @@ export class ApiService {
 
   public performRequest<T>(requestBuild: RequestBuilder): Observable<T> {
     let request = requestBuild.build();
-    return this.http.request(request)
+    return this.http.request<HttpResponse<string>>(request.method, request.url, {
+      body: request.body,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      params: request.params,
+      responseType: 'json',
+      observe: 'response',
+      withCredentials: request.withCredentials
+    })
       .map((response: HttpResponse<any>) => {
         let jsonData = response.body;
         if (jsonData.service.successful) {
@@ -22,7 +31,7 @@ export class ApiService {
         }
       })
       .catch((error: HttpErrorResponse) => {
-        throw error.error;
+        throw error;
       })
       .share();
   }

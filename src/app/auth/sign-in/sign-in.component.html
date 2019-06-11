@@ -2,14 +2,16 @@
   <mat-card-header>
     <mat-card-title><h3>Sign in</h3></mat-card-title>
   </mat-card-header>
+
   <mat-card-content>
     <form #signInForm="ngForm">
       <mat-form-field style="display: block">
         <input matInput
                ngModel
-               name="email"
-               placeholder="email">
+               name="username"
+               placeholder="username">
       </mat-form-field>
+
       <mat-form-field style="display: block">
         <input matInput
                ngModel
@@ -20,6 +22,7 @@
     </form>
     <p *ngIf="errorText" style="color: red">{{ errorText }}</p>
   </mat-card-content>
+
   <mat-card-actions>
     <button mat-button
             class="mat-raised-button"

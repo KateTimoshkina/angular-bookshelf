@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Dictionary } from '../types';
 
 @Injectable()
@@ -11,9 +11,34 @@ export class RequestBuilder {
   queryParams: Dictionary<string> = {};
   body: string = '';
   extraHeaders: Dictionary<string> = {};
+  responseType: 'arraybuffer' | 'blob' | 'json' | 'text';
 
   public constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
+  }
+
+  public build(): HttpRequest<string> {
+    const queryParameters = new HttpParams();
+    for (const key in this.queryParams) {
+      if (this.queryParams.hasOwnProperty(key)) {
+        queryParameters.set(key, this.queryParams[key]);
+      }
+    }
+
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    for (const key in this.extraHeaders) {
+      if (this.extraHeaders.hasOwnProperty(key)) {
+        headers.set(key, this.extraHeaders[key]);
+      }
+    }
+
+    return new HttpRequest<string>(this.method, this.baseUrl + this.buildPath(), this.body, {
+      responseType: this.responseType || 'json',
+      headers: headers,
+      params: queryParameters,
+      withCredentials: true
+    });
   }
 
   public withPath(path: string) {
@@ -46,32 +71,9 @@ export class RequestBuilder {
     return this;
   }
 
-  public build(): HttpRequest<any> {
-    const queryParameters = new HttpParams();
-
-    for (const key in this.queryParams) {
-      if (this.queryParams.hasOwnProperty(key)) {
-        queryParameters.set(key, this.queryParams[key]);
-      }
-    }
-
-    const url = this.baseUrl + this.buildPath();
-    const request = new HttpRequest(this.method, url, this.body, {
-      params: queryParameters,
-      withCredentials: true
-    });
-
-    request.headers.set('Content-Type', 'application/json');
-
-    if (!!this.extraHeaders) {
-      for (const key in this.extraHeaders) {
-        if (this.extraHeaders.hasOwnProperty(key)) {
-          request.headers.set(key, this.extraHeaders[key]);
-        }
-      }
-    }
-
-    return request;
+  public withResponseType(responseType: 'arraybuffer' | 'blob' | 'json' | 'text') {
+    this.responseType = responseType;
+    return this;
   }
 
   protected buildPath() {
